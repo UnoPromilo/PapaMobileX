@@ -8,13 +8,17 @@ public class HashService : IHashService
 {
     public string GetHash(string password, string salt)
     {
-        var hashed = KeyDerivation.Pbkdf2(password, Convert.FromBase64String(salt), KeyDerivationPrf.HMACSHA256, 100000, 256 / 8);
+        byte[] hashed = KeyDerivation.Pbkdf2(password,
+                                             Convert.FromBase64String(salt),
+                                             KeyDerivationPrf.HMACSHA256,
+                                             100000,
+                                             256 / 8);
         return Convert.ToBase64String(hashed);
     }
 
     public string GenerateSalt()
     {
         byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
-        return Convert.ToBase64String(salt); 
+        return Convert.ToBase64String(salt);
     }
 }

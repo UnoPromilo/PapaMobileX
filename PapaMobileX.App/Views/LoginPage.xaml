@@ -8,8 +8,7 @@
              x:Class="PapaMobileX.App.Views.LoginPage"
              Title="">
     <ContentPage.Resources>
-        <ResourceDictionary>
-        </ResourceDictionary>
+        <ResourceDictionary />
     </ContentPage.Resources>
     <Grid BackgroundColor="{DynamicResource BackgroundColorDark}"
           Padding="0"
@@ -21,63 +20,63 @@
               HeightRequest="200"
               HorizontalOptions="Fill">
             <Image Source="logo"
-                   Margin="30, 40, 0, 0"/>
+                   Margin="30, 40, 0, 0" />
             <Image Grid.Column="1"
                    WidthRequest="100"
                    HeightRequest="100"
                    VerticalOptions="Start"
                    Source="pope_clipped"
-                   Margin="0"/>
+                   Margin="0" />
         </Grid>
         <StackLayout Grid.Row="1"
-              HorizontalOptions="Fill"
-              VerticalOptions="Center"
-              Spacing="20"
-              Padding="30,0">
-               <Label Text="{Binding ErrorMessage}"
-                      TextColor="{DynamicResource ErrorColor}"
-                      HorizontalOptions="Center"
-                      HeightRequest="40"
-                      FontSize="16"
-                      VerticalTextAlignment="Center"/>
-               <controls:LoginEntry x:Name="ServerAddressEntry"
-                                    IconSource="server"
-                                    Placeholder="{x:Static resourceDictionary:Resources.ServerAddress}"
-                                    Text="{Binding FormModel.Address}"
-                                    Keyboard="Url"/>
-               <controls:LoginEntry x:Name="UserNameEntry"
-                                    IconSource="user"
-                                    Placeholder="{x:Static resourceDictionary:Resources.UserName}"
-                                    Text="{Binding FormModel.UserName}"/>
-               <controls:LoginEntry x:Name="PasswordEntry"
-                                    IconSource="lock"
-                                    Placeholder="{x:Static resourceDictionary:Resources.Password}"
-                                    IsPassword="True"
-                                    Text="{Binding FormModel.Password}"/>
-               <Button Text="{x:Static resourceDictionary:Resources.LetsRide}"
-                       TextTransform="Uppercase"
-                       FontFamily="RobotoBold"
-                       HeightRequest="40"
-                       FontSize="18"
-                       Padding="40,0"
-                       HorizontalOptions="End"
-                       CornerRadius="20"
-                       Command="{Binding LoginCommand}"/>
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Center"
+                     Spacing="20"
+                     Padding="30,0">
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="{DynamicResource ErrorColor}"
+                   HorizontalOptions="Center"
+                   HeightRequest="40"
+                   FontSize="16"
+                   VerticalTextAlignment="Center" />
+            <controls:LoginEntry x:Name="ServerAddressEntry"
+                                 IconSource="server"
+                                 Placeholder="{x:Static resourceDictionary:Resources.ServerAddress}"
+                                 Text="{Binding FormModel.Address}"
+                                 Keyboard="Url" />
+            <controls:LoginEntry x:Name="UserNameEntry"
+                                 IconSource="user"
+                                 Placeholder="{x:Static resourceDictionary:Resources.UserName}"
+                                 Text="{Binding FormModel.UserName}" />
+            <controls:LoginEntry x:Name="PasswordEntry"
+                                 IconSource="lock"
+                                 Placeholder="{x:Static resourceDictionary:Resources.Password}"
+                                 IsPassword="True"
+                                 Text="{Binding FormModel.Password}" />
+            <Button Text="{x:Static resourceDictionary:Resources.LetsRide}"
+                    TextTransform="Uppercase"
+                    FontFamily="RobotoBold"
+                    HeightRequest="40"
+                    FontSize="18"
+                    Padding="40,0"
+                    HorizontalOptions="End"
+                    CornerRadius="20"
+                    Command="{Binding LoginCommand}" />
         </StackLayout>
         <Grid Grid.Row="2"
               RowDefinitions="30, Auto, 50, 30">
-           <Image Grid.Row="0"
-                  Grid.RowSpan="3"
-                  Aspect="AspectFill"
-                  Source="wave"
-                  Margin="0"
-                  effects:TintImageEffect.TintColor="{DynamicResource PrimaryColorLight}"/>
+            <Image Grid.Row="0"
+                   Grid.RowSpan="3"
+                   Aspect="AspectFill"
+                   Source="wave"
+                   Margin="0"
+                   effects:TintImageEffect.TintColor="{DynamicResource PrimaryColorLight}" />
             <Image Grid.Row="1"
                    Grid.RowSpan="3"
                    Aspect="AspectFill"
                    Source="wave"
                    Margin="0"
-                   effects:TintImageEffect.TintColor="{DynamicResource PrimaryColor}"/>
+                   effects:TintImageEffect.TintColor="{DynamicResource PrimaryColor}" />
             <Label Grid.Row="2"
                    Style="{StaticResource LabelLight}"
                    VerticalOptions="Center"
@@ -89,10 +88,7 @@
                    Text="{Binding Joke}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
-                   MaxLines="4"/>
+                   MaxLines="4" />
         </Grid>
     </Grid>
 </ContentPage>
-
-
-

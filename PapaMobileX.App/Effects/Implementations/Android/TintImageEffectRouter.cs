@@ -7,6 +7,7 @@ using Color = Microsoft.Maui.Graphics.Color;
 
 [assembly: ResolutionGroupName("PapaMobileX")]
 [assembly: ExportEffect(typeof(TintImageEffectRouter), nameof(TintImageEffectRouter))]
+
 namespace PapaMobileX.App.Effects.Implementations;
 
 public partial class TintImageEffectRouter
@@ -16,7 +17,7 @@ public partial class TintImageEffectRouter
         if (Control == null || Element == null)
             return;
 
-        var color = TintImageEffect.GetTintColor(Element);
+        Color? color = TintImageEffect.GetTintColor(Element);
 
         switch (Control)
         {
@@ -40,13 +41,13 @@ public partial class TintImageEffectRouter
     {
         base.OnElementPropertyChanged(args);
 
-        if (!args.PropertyName.Equals(TintImageEffect.TintColorProperty.PropertyName))
+        if (!args.PropertyName!.Equals(TintImageEffect.TintColorProperty.PropertyName))
             return;
 
         OnAttachedInternal();
     }
 
-    private void SetImageViewTintColor(ImageView image, Color color)
+    private static void SetImageViewTintColor(ImageView image, Color? color)
     {
         if (color == default(Color))
         {

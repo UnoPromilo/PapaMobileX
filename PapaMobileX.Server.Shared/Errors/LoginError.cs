@@ -14,6 +14,9 @@ public class LoginError : Error
     public HttpStatusCode StatusCode { get; }
 
     public override string Message { get; }
-    
-    public static LoginError WrongCredentials() => new(HttpStatusCode.NotFound, "Login failed. Invalid credentials.");
+
+    public static LoginError WrongCredentials()
+    {
+        return new(HttpStatusCode.NotFound, "Login failed. Invalid credentials.");
+    }
 }

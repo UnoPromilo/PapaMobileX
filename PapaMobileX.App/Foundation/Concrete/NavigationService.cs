@@ -5,6 +5,12 @@ namespace PapaMobileX.App.Foundation.Concrete;
 public class NavigationService : INavigationService
 {
     private readonly IServiceProvider _services;
+
+    public NavigationService(IServiceProvider services)
+    {
+        _services = services;
+    }
+
     private INavigation Navigation
     {
         get
@@ -12,24 +18,16 @@ public class NavigationService : INavigationService
             INavigation? navigation = Application.Current?.MainPage?.Navigation;
             if (navigation is not null)
                 return navigation;
-            else
-            {
-                throw new Exception();
-            }
+            throw new Exception();
         }
     }
 
-    public NavigationService(IServiceProvider services)
-    {
-        _services = services;
-    }
-    
     public async Task NavigateToPage<T>(object? parameter = null) where T : Page
     {
         var toPage = ResolvePage<T>();
         await Navigation.PushAsync(toPage, true);
     }
-    
+
     public Task NavigateBack()
     {
         if (Navigation.NavigationStack.Count > 1)
@@ -38,5 +36,7 @@ public class NavigationService : INavigationService
     }
 
     private T ResolvePage<T>() where T : Page
-        => (T)_services.GetService(typeof(T))!;
+    {
+        return (T)_services.GetService(typeof(T))!;
+    }
 }

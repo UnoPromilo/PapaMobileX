@@ -1,4 +1,3 @@
-using Microsoft.Maui.Controls.Platform;
 using PapaMobileX.App.Effects.Implementations;
 
 namespace PapaMobileX.App.Effects;
@@ -6,21 +5,28 @@ namespace PapaMobileX.App.Effects;
 public class TintImageEffect : RoutingEffect
 {
     public static readonly BindableProperty TintColorProperty
-        = BindableProperty.CreateAttached("TintColor", typeof(Color), typeof(TintImageEffect), default(Color),
-            propertyChanged: OnTintColorChanged);
+        = BindableProperty.CreateAttached("TintColor",
+                                          typeof(Color),
+                                          typeof(TintImageEffect),
+                                          default(Color),
+                                          propertyChanged: OnTintColorChanged);
 
-    public static Color GetTintColor(BindableObject view)
-        => (Color)view.GetValue(TintColorProperty);
+    public static Color? GetTintColor(BindableObject view)
+    {
+        return (Color)view.GetValue(TintColorProperty);
+    }
 
     public static void SetTintColor(BindableObject view, Color value)
-        => view.SetValue(TintColorProperty, value);
+    {
+        view.SetValue(TintColorProperty, value);
+    }
 
-    static void OnTintColorChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void OnTintColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is View view))
             return;
 
-        var oldEffect = view.Effects.FirstOrDefault(e => e is TintImageEffectRouter);
+        Effect? oldEffect = view.Effects.FirstOrDefault(e => e is TintImageEffectRouter);
 
         if (oldEffect != null)
             view.Effects.Remove(oldEffect);
@@ -30,5 +36,4 @@ public class TintImageEffect : RoutingEffect
 
         view.Effects.Add(new TintImageEffectRouter());
     }
-          
-} 
+}

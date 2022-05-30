@@ -1,8 +1,8 @@
 <Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-      xmlns:effects="clr-namespace:PapaMobileX.App.Effects"
-      xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
-      HeightRequest="40"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:effects="clr-namespace:PapaMobileX.App.Effects"
+        xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
+        HeightRequest="40"
         HorizontalOptions="Fill"
         Stroke="{DynamicResource PrimaryColor}"
         StrokeThickness="1"
@@ -26,7 +26,7 @@
                InputTransparent="True"
                Source="server"
                effects:TintImageEffect.TintColor="{DynamicResource PrimaryColor}"
-               Margin="10,5"/>
+               Margin="10,5" />
         <Entry x:Name="InternalEntry" Grid.Column="1"
                Placeholder="Address"
                PlaceholderColor="{DynamicResource TextColorDark}"
@@ -36,6 +36,6 @@
                ReturnType="Next"
                FontFamily="RobotoRegular"
                VerticalOptions="Fill"
-               Background="Transparent"/>
+               Background="Transparent" />
     </Grid>
 </Border>

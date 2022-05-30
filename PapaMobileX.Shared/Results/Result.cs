@@ -43,6 +43,12 @@ public class Result<TError, TData> : Result<TError>, IDisposable where TError : 
 
     public TData Data { get; }
 
+    public void Dispose()
+    {
+        if (Data is IDisposable disposable)
+            disposable.Dispose();
+    }
+
     public static Result<TError, TData> Ok(TData data)
     {
         return new Result<TError, TData>(default, data, true);
@@ -61,13 +67,5 @@ public class Result<TError, TData> : Result<TError>, IDisposable where TError : 
     public static implicit operator Result<TError, TData>(TData data)
     {
         return Ok(data);
-    }
-
-    public void Dispose()
-    {
-        if (Data is IDisposable disposable)
-        {
-            disposable.Dispose();
-        }
     }
 }

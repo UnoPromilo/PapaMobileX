@@ -1,7 +1,5 @@
 using System.Net;
 using PapaMobileX.App.BusinessLogic.Mappers.Abstraction;
-using PapaMobileX.App.BusinessLogic.Mappers.Concrete.DTOs;
-using PapaMobileX.App.BusinessLogic.Mappers.Concrete.Models;
 using PapaMobileX.App.BusinessLogic.Models;
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.Shared.Errors;
@@ -17,22 +15,22 @@ public class ApiClientService : IApiClientService
     private readonly IMapper<LoginModel, LoginDTO> _loginDTOMapper;
     private readonly IMapper<LoginResultDTO, LoginResultModel> _loginResultModelMapper;
 
-    public ApiClientService(
-        IHttpClientService httpClientService,
-        IMapper<LoginModel, LoginDTO> loginDTOMapper,
-        IMapper<LoginResultDTO, LoginResultModel> loginResultModelMapper)
+    public ApiClientService(IHttpClientService httpClientService,
+                            IMapper<LoginModel, LoginDTO> loginDTOMapper,
+                            IMapper<LoginResultDTO, LoginResultModel> loginResultModelMapper)
     {
         _httpClientService = httpClientService;
         _loginDTOMapper = loginDTOMapper;
         _loginResultModelMapper = loginResultModelMapper;
     }
-    
+
     public async Task<Result<LoginError, LoginResultModel>> LoginAsync(LoginModel loginModel,
-        CancellationToken cancellationToken = default)
+                                                                       CancellationToken cancellationToken = default)
     {
-        var dto = _loginDTOMapper.Map(loginModel);
-        var result = await _httpClientService.PostAsync<LoginResultDTO>(Constants.ApiEndpoints.Login, dto, cancellationToken);
-        if(result.IsFailed)
+        LoginDTO dto = _loginDTOMapper.Map(loginModel);
+        Result<HttpError, LoginResultDTO?> result =
+            await _httpClientService.PostAsync<LoginResultDTO>(Constants.ApiEndpoints.Login, dto, cancellationToken);
+        if (result.IsFailed)
         {
             if (result.Error.WasCanceled)
                 return LoginError.Timeout();
@@ -42,10 +40,11 @@ public class ApiClientService : IApiClientService
                 return LoginError.WrongCredentials();
             if (result.Error.StatusCode == HttpStatusCode.BadRequest)
                 return LoginError.WrongCredentials();
-            
+
             return LoginError.OtherError();
         }
-        var resultModel = _loginResultModelMapper.Map(result.Data!);
+
+        LoginResultModel resultModel = _loginResultModelMapper.Map(result.Data!);
         return resultModel;
     }
 

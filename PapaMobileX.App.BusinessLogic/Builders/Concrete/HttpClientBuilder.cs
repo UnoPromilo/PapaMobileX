@@ -13,11 +13,12 @@ public class HttpClientBuilder : IHttpClientBuilder
     }
 
     public HttpClient JokeHttpClient => _clientFactory.CreateClient(SharedConstants.JokeHttpClient);
+
     public HttpClient MainHttpClient
     {
         get
         {
-            var client = _clientFactory.CreateClient(SharedConstants.MainHttpClient);
+            HttpClient client = _clientFactory.CreateClient(SharedConstants.MainHttpClient);
             client.BaseAddress = MainHttpClientBaseAddress;
             return client;
         }

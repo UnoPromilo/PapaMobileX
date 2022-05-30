@@ -13,19 +13,24 @@ public class HttpClientService : IHttpClientService
 {
     private const string ContentTypeHeaderValue = "application/json";
     private readonly IHttpClientBuilder _httpClientBuilder;
-    private CancellationTokenSource _cancellationTokenSource = new();
-    private readonly object _tokenUsageLock = new();
 
-    private readonly JsonSerializerOptions _serializerOptions = new() { PropertyNameCaseInsensitive = true };
+    private readonly JsonSerializerOptions _serializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    private readonly object _tokenUsageLock = new();
+    private CancellationTokenSource _cancellationTokenSource = new();
 
     public HttpClientService(IHttpClientBuilder httpClientBuilder)
     {
         _httpClientBuilder = httpClientBuilder;
     }
-    
+
     public async Task<Result<HttpError, T?>> GetAsync<T>(string resource, CancellationToken cancellationToken = default)
     {
-        using var response = await InternalSendAsync(HttpMethod.Get, resource, null, cancellationToken);
+        using Result<HttpError, HttpResponseMessage> response =
+            await InternalSendAsync(HttpMethod.Get, resource, null, cancellationToken);
 
         if (response.IsFailed)
             return response.Error;
@@ -33,9 +38,12 @@ public class HttpClientService : IHttpClientService
         return await DeserializeResponse<T>(response.Data);
     }
 
-    public async Task<Result<HttpError, T?>> PostAsync<T>(string resource, object body, CancellationToken cancellationToken = default)
+    public async Task<Result<HttpError, T?>> PostAsync<T>(string resource,
+                                                          object body,
+                                                          CancellationToken cancellationToken = default)
     {
-        using var response = await InternalSendAsync(HttpMethod.Post, resource, body, cancellationToken);
+        using Result<HttpError, HttpResponseMessage> response =
+            await InternalSendAsync(HttpMethod.Post, resource, body, cancellationToken);
 
         if (response.IsFailed)
             return response.Error;
@@ -43,10 +51,12 @@ public class HttpClientService : IHttpClientService
         return await DeserializeResponse<T>(response.Data);
     }
 
-    public async Task<Result<HttpError>> PostAsync(string resource, object body,
-        CancellationToken cancellationToken = default)
+    public async Task<Result<HttpError>> PostAsync(string resource,
+                                                   object body,
+                                                   CancellationToken cancellationToken = default)
     {
-        using var response = await InternalSendAsync(HttpMethod.Post, resource, body, cancellationToken);
+        using Result<HttpError, HttpResponseMessage> response =
+            await InternalSendAsync(HttpMethod.Post, resource, body, cancellationToken);
 
         return response.IsFailed ? response.Error : Result<HttpError>.Ok();
     }
@@ -59,37 +69,43 @@ public class HttpClientService : IHttpClientService
             _cancellationTokenSource = new CancellationTokenSource();
         }
     }
-    
+
     private CancellationToken LinkCancellationToken(CancellationToken cancellationToken)
     {
         lock (_tokenUsageLock)
         {
-            return CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, cancellationToken).Token;
+            return CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, cancellationToken)
+                                          .Token;
         }
     }
 
-    private async Task<Result<HttpError, HttpResponseMessage>> InternalSendAsync(HttpMethod httpMethod, string resource, object? body, CancellationToken cancellationToken = default)
+    private async Task<Result<HttpError, HttpResponseMessage>> InternalSendAsync(
+        HttpMethod httpMethod,
+        string resource,
+        object? body,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            var combinedCancellationToken = LinkCancellationToken(cancellationToken);
-            var httpClient = _httpClientBuilder.MainHttpClient;
+            CancellationToken combinedCancellationToken = LinkCancellationToken(cancellationToken);
+            HttpClient httpClient = _httpClientBuilder.MainHttpClient;
 
             UriBuilder uriBuilder = new(httpClient.BaseAddress!)
             {
                 Path = resource
             };
-            var fullUri = uriBuilder.Uri;
+            Uri fullUri = uriBuilder.Uri;
 
             var httpRequestMessage = new HttpRequestMessage(httpMethod, fullUri);
 
             if (body != null)
             {
-                var serializeBody = JsonSerializer.Serialize(body);
+                string serializeBody = JsonSerializer.Serialize(body);
                 httpRequestMessage.Content = new StringContent(serializeBody, Encoding.UTF8, ContentTypeHeaderValue);
             }
 
-            var responseMessage = await httpClient.SendAsync(httpRequestMessage, combinedCancellationToken);
+            HttpResponseMessage responseMessage =
+                await httpClient.SendAsync(httpRequestMessage, combinedCancellationToken);
 
             if (!responseMessage.IsSuccessStatusCode)
                 return HttpError.UnsuccessfulRequest(responseMessage.StatusCode);
@@ -114,13 +130,12 @@ public class HttpClientService : IHttpClientService
         }
     }
 
-    private async Task<T?> DeserializeResponse<T>(
-        HttpResponseMessage responseMessage,
-        bool ignoreJsonExceptions = false)
+    private async Task<T?> DeserializeResponse<T>(HttpResponseMessage responseMessage,
+                                                  bool ignoreJsonExceptions = false)
     {
         try
         {
-            var stringResponse = await responseMessage.Content.ReadAsStringAsync();
+            string stringResponse = await responseMessage.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<T>(stringResponse, _serializerOptions);
         }
         catch (JsonException) when (ignoreJsonExceptions)

@@ -7,8 +7,8 @@ namespace PapaMobileX.App.BusinessLogic.Services.Concrete;
 
 public class RandomJokeService : IRandomJokeService
 {
-    private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
+    private readonly HttpClient _httpClient;
 
     public RandomJokeService(IHttpClientBuilder httpClientBuilder, IConfiguration configuration)
     {
@@ -18,11 +18,12 @@ public class RandomJokeService : IRandomJokeService
 
     public async Task<string> GetRandomJoke()
     {
-        var response = await _httpClient.GetAsync(_configuration.GetValue<string>(Constants.JokeServicePathKey));
-        var readAsString = await response.Content.ReadAsStringAsync();
+        HttpResponseMessage response =
+            await _httpClient.GetAsync(_configuration.GetValue<string>(Constants.JokeServicePathKey));
+        string readAsString = await response.Content.ReadAsStringAsync();
         return RemoveSpecialCharacters(readAsString);
     }
-    
+
     private static string RemoveSpecialCharacters(string str)
     {
         str = Regex.Replace(str, @"[""\n]+", "", RegexOptions.Compiled);

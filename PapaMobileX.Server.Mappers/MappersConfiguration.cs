@@ -1,6 +1,5 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using PapaMobileX.Server.Mappers.Abstractions;
 
 namespace PapaMobileX.Server.Mappers;
 
@@ -12,20 +11,20 @@ public static class MappersConfiguration
 
         List<Type> mappers =
             assembly.GetTypes()
-                .Where(x =>
-                    !x.IsAbstract &&
-                    x.IsClass &&
-                    x.Name.EndsWith("Mapper"))
-                .ToList();
+                    .Where(x =>
+                               !x.IsAbstract &&
+                               x.IsClass &&
+                               x.Name.EndsWith("Mapper"))
+                    .ToList();
 
         foreach (Type mapperType in mappers)
         {
-            var interfaceType = mapperType
-                    .GetInterfaces()
-                    .First(t => t.IsGenericType); 
+            Type interfaceType = mapperType
+                                 .GetInterfaces()
+                                 .First(t => t.IsGenericType);
             services.AddTransient(interfaceType, mapperType);
         }
 
         return services;
-    } 
+    }
 }

@@ -5,14 +5,12 @@ namespace PapaMobileX.Server.DataSource;
 
 public class CommonContext : DbContext
 {
+    public CommonContext(DbContextOptions<CommonContext> options)
+        : base(options) { }
+
     public DbSet<Account> Accounts { get; set; } = null!;
     public DbSet<Claim> Claims { get; set; } = null!;
 
-    public CommonContext(DbContextOptions<CommonContext> options)
-        : base(options)
-    {
-    }
-    
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         base.OnConfiguring(options);

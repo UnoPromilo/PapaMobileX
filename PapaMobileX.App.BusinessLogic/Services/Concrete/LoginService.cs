@@ -16,21 +16,19 @@ public class LoginService : ILoginService
         _apiClientService = apiClientService;
         _httpClientBuilder = httpClientBuilder;
     }
-    
+
     public async Task<Result<LoginError>> Login(LoginModel loginModel)
     {
-        var baseAddress = TryBuildBaseAddress(loginModel.Address);
+        Uri? baseAddress = TryBuildBaseAddress(loginModel.Address);
         if (baseAddress is null)
             return LoginError.InvalidUriFormat();
 
         _httpClientBuilder.MainHttpClientBaseAddress = baseAddress;
 
-        var result = await _apiClientService.LoginAsync(loginModel);
+        Result<LoginError, LoginResultModel> result = await _apiClientService.LoginAsync(loginModel);
         if (result.IsFailed)
-        {
             return result.Error;
-        }
-        
+
         return Result<LoginError>.Ok();
     }
 
@@ -38,24 +36,22 @@ public class LoginService : ILoginService
     {
         try
         {
-            var hostParts = host.Split(':');
+            string[] hostParts = host.Split(':');
             if (hostParts.Length is > 2 or 0)
-            {
                 throw new UriFormatException();
-            }
-            
+
             UriBuilder builder = new()
             {
                 Host = hostParts[0],
-                Scheme = Uri.UriSchemeHttps,
+                Scheme = Uri.UriSchemeHttps
             };
-            
+
             if (hostParts.Length == 2)
             {
                 Int32.TryParse(hostParts[1], out int port);
                 builder.Port = port;
             }
-            
+
             return builder.Uri;
         }
         catch (UriFormatException)

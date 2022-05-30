@@ -8,13 +8,13 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLogging();
 builder.Services
-    .ConfigureSwagger()
-    .ConfigureMappers()
-    .ConfigureBusinessLogic()
-    .ConfigureSecurity(builder.Configuration)
-    .ConfigureDatasource(builder.Configuration)
-    .AddEndpointsApiExplorer()
-    .AddControllers();
+       .ConfigureSwagger()
+       .ConfigureMappers()
+       .ConfigureBusinessLogic()
+       .ConfigureSecurity(builder.Configuration)
+       .ConfigureDatasource(builder.Configuration)
+       .AddEndpointsApiExplorer()
+       .AddControllers();
 
 WebApplication app = builder.Build();
 

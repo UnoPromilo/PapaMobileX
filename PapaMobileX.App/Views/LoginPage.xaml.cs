@@ -1,5 +1,4 @@
 using PapaMobileX.App.BusinessLogic.ViewModels;
-using PapaMobileX.App.Effects.Implementations;
 using PapaMobileX.App.Foundation.Enums;
 using PapaMobileX.App.Foundation.Services;
 
@@ -14,7 +13,7 @@ public partial class LoginPage : ContentPage
         _orientationService = orientationService;
         BindingContext = viewModel;
         InitializeComponent();
-        NavigationPage.SetHasNavigationBar(this, false); 
+        NavigationPage.SetHasNavigationBar(this, false);
     }
 
     protected override void OnAppearing()

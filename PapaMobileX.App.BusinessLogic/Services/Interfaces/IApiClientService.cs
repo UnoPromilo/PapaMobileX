@@ -7,7 +7,7 @@ namespace PapaMobileX.App.BusinessLogic.Services.Interfaces;
 public interface IApiClientService
 {
     Task<Result<LoginError, LoginResultModel>> LoginAsync(LoginModel loginModel,
-        CancellationToken cancellationToken = default);
-    
+                                                          CancellationToken cancellationToken = default);
+
     void CancelAllRequests();
 }

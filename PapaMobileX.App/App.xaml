@@ -1,7 +1,6 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:local="clr-namespace:PapaMobileX.App"
              x:Class="PapaMobileX.App.App"
              windows:Application.ImageDirectory="Assets">
     <Application.Resources>
@@ -21,7 +20,7 @@
                 <Setter Property="TextColor" Value="{DynamicResource TextColorDark}" />
                 <Setter Property="FontFamily" Value="RobotoRegular" />
             </Style>
-            
+
             <Style TargetType="Label" x:Key="LabelLight">
                 <Setter Property="TextColor" Value="{DynamicResource TextColorDark}" />
                 <Setter Property="FontFamily" Value="RobotoRegular" />
@@ -40,8 +39,7 @@
                 <Setter Property="FontFamily" Value="RobotoRegular" />
                 <Setter Property="FontSize" Value="16" />
             </Style>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
-

@@ -1,23 +1,22 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Microsoft.Maui.Controls;
 using PapaMobileX.App.BusinessLogic.Models;
 using PapaMobileX.App.BusinessLogic.ResourceDictionary;
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.Shared.Commands.Concrete;
 using PapaMobileX.App.Shared.Enums;
+using PapaMobileX.App.Shared.Errors;
+using PapaMobileX.Shared.Results;
 
 namespace PapaMobileX.App.BusinessLogic.ViewModels;
 
 public class LoginViewModel : INotifyPropertyChanged
 {
-    private readonly IRandomJokeService _randomJokeService;
     private readonly ILoginService _loginService;
-    private string _joke = Resources.Loading;
+    private readonly IRandomJokeService _randomJokeService;
     private string _errorMessage = String.Empty;
-    
-    public event PropertyChangedEventHandler? PropertyChanged;
-    
+    private string _joke = Resources.Loading;
+
     public LoginViewModel(IRandomJokeService randomJokeService, ILoginService loginService)
     {
         _randomJokeService = randomJokeService;
@@ -25,8 +24,8 @@ public class LoginViewModel : INotifyPropertyChanged
         _ = RefreshJoke();
         LoginCommand = new AsyncCommand(Login);
     }
-    
-    public string Joke 
+
+    public string Joke
     {
         get => _joke;
         private set => SetField(ref _joke, value);
@@ -37,10 +36,12 @@ public class LoginViewModel : INotifyPropertyChanged
         get => _errorMessage;
         private set => SetField(ref _errorMessage, value);
     }
-    
+
     public AsyncCommand LoginCommand { get; init; }
 
     public LoginModel FormModel { get; init; } = new();
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
@@ -49,12 +50,13 @@ public class LoginViewModel : INotifyPropertyChanged
 
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;
     }
-    
+
     private async Task RefreshJoke()
     {
         string joke = await _randomJokeService.GetRandomJoke();
@@ -63,7 +65,7 @@ public class LoginViewModel : INotifyPropertyChanged
 
     private async Task Login()
     {
-        var result = await _loginService.Login(FormModel);
+        Result<LoginError> result = await _loginService.Login(FormModel);
         if (result.IsFailed)
         {
             switch (result.Error.LoginErrorType)

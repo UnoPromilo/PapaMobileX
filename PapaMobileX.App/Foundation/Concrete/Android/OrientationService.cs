@@ -1,6 +1,5 @@
 using Android.Content.PM;
 using PapaMobileX.App.Foundation.Enums;
-using PapaMobileX.App.Foundation.Services;
 
 namespace PapaMobileX.App.Services.Concrete;
 
@@ -11,7 +10,7 @@ public partial class OrientationService
         var activity = Platform.CurrentActivity ?? MainActivity.Context;
 
         switch (orientation)
-        { 
+        {
             case Orientation.Landscape:
                 activity.RequestedOrientation = ScreenOrientation.Landscape;
                 break;
@@ -25,6 +24,6 @@ public partial class OrientationService
 
     public partial void UnlockOrientation()
     {
-        Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Unspecified;
+        Platform.CurrentActivity!.RequestedOrientation = ScreenOrientation.Unspecified;
     }
 }

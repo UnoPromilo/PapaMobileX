@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using PapaMobileX.DTOs;
 using PapaMobileX.DTOs.Requests;
 using PapaMobileX.DTOs.Responses;
 using PapaMobileX.Server.Entities.Models;
 using PapaMobileX.Server.Mappers.Abstractions;
-using PapaMobileX.Server.Mappers.Concrete;
 using PapaMobileX.Server.Security.Services.Interfaces;
 using PapaMobileX.Server.Shared.Errors;
-using PapaMobileX.Shared.Results.Errors;
+using PapaMobileX.Shared.Results;
 
 namespace PapaMobileX.Server.Controllers;
 
@@ -19,10 +17,9 @@ public class LoginController : ControllerBase
     private readonly IMapper<LoginResultModel, LoginResultDTO> _loginResultMapper;
     private readonly ILoginService _loginService;
 
-    public LoginController(
-        IMapper<LoginDTO, LoginModel> loginModelMapper,
-        IMapper<LoginResultModel, LoginResultDTO> loginResultMapper,
-        ILoginService loginService)
+    public LoginController(IMapper<LoginDTO, LoginModel> loginModelMapper,
+                           IMapper<LoginResultModel, LoginResultDTO> loginResultMapper,
+                           ILoginService loginService)
     {
         _loginModelMapper = loginModelMapper;
         _loginResultMapper = loginResultMapper;
@@ -35,13 +32,11 @@ public class LoginController : ControllerBase
     [ProducesResponseType(typeof(LoginError), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> LoginAsync(LoginDTO dto)
     {
-        var model = _loginModelMapper.Map(dto);
-        var result = await _loginService.Login(model);
+        LoginModel model = _loginModelMapper.Map(dto);
+        Result<LoginError, LoginResultModel> result = await _loginService.Login(model);
         if (result.IsSuccess)
-        {
             return Ok(_loginResultMapper.Map(result.Data));
-        }
-        
+
         return new ObjectResult(result.Error)
         {
             StatusCode = (int)result.Error!.StatusCode

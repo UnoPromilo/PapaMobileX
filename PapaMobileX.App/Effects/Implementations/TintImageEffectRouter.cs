@@ -14,13 +14,15 @@ public partial class TintImageEffectRouter : PlatformEffect
     {
         OnDetachedInternal();
     }
-    
+
     protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
     {
         OnElementPropertyChangedInternal(args);
     }
-    
+
     private partial void OnAttachedInternal();
+
     private partial void OnDetachedInternal();
+
     private partial void OnElementPropertyChangedInternal(PropertyChangedEventArgs args);
 }

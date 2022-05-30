@@ -13,7 +13,7 @@ public static class SecurityConfiguration
     public static IServiceCollection ConfigureSecurity(this IServiceCollection services, IConfiguration configuration)
     {
         byte[] jwtSecretKey = Encoding.ASCII.GetBytes(configuration.GetValue<string>(Constants.JWTSecretConfigKey));
-        
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -36,7 +36,7 @@ public static class SecurityConfiguration
         services.AddTransient<ITokenService, TokenService>();
         services.AddTransient<ILoginService, LoginService>();
         services.AddTransient<IAddAccountService, AddAccountService>();
-        
+
         return services;
     }
 }

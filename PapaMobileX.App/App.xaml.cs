@@ -11,6 +11,5 @@ public partial class App : Application
         AccentColor = Resources["PrimaryColor"] as Color;
         MainPage = new NavigationPage();
         _ = navigationService.NavigateToPage<LoginPage>();
-
     }
 }

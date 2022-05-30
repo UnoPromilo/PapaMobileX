@@ -1,10 +1,8 @@
-﻿using System.Net;
-using System.Reflection;
+﻿using System.Reflection;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using PapaMobileX.App.Effects;
 using PapaMobileX.App.Effects.Implementations;
-using Xamarin.CommunityToolkit.Effects;
 
 namespace PapaMobileX.App;
 
@@ -12,7 +10,7 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        var builder = MauiApp.CreateBuilder();
+        MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
             .RegisterViews()
@@ -20,10 +18,7 @@ public static class MauiProgram
             .RegisterMappers()
             .RegisterServices()
             .UseMauiCommunityToolkit()
-            .ConfigureEffects(effects =>
-            {
-                effects.Add<TintImageEffect, TintImageEffectRouter>();
-            })
+            .ConfigureEffects(effects => { effects.Add<TintImageEffect, TintImageEffectRouter>(); })
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Roboto-Black.ttf", "RobotoBlack");
@@ -40,14 +35,14 @@ public static class MauiProgram
                 fonts.AddFont("Roboto-ThinItalic.ttf", "RobotoThinItalic");
             });
 
-        var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-        using var stream = Assembly
-            .GetExecutingAssembly()
-            .GetManifestResourceStream($"{assemblyName}.appsettings.json");
+        string? assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+        using Stream? stream = Assembly
+                               .GetExecutingAssembly()
+                               .GetManifestResourceStream($"{assemblyName}.appsettings.json");
 
-        var config = new ConfigurationBuilder()
-            .AddJsonStream(stream)
-            .Build();
+        IConfigurationRoot? config = new ConfigurationBuilder()
+                                     .AddJsonStream(stream)
+                                     .Build();
 
         builder.Configuration.AddConfiguration(config);
 

@@ -11,24 +11,24 @@ public static class DatasourceConfiguration
     {
         services
             .AddDbContext<CommonContext>(
-                options => options.UseSqlite(configuration.GetConnectionString(Constants.DefaultConnection)
-                ));
-        
+                                         options =>
+                                             options.UseSqlite(configuration.GetConnectionString(Constants
+                                                                                                     .DefaultConnection)
+                                                              ));
+
         Assembly assembly = typeof(DatasourceConfiguration).Assembly;
 
         List<Type> repositories =
             assembly.GetTypes()
-                .Where(x =>
-                    !x.IsAbstract &&
-                    x.IsClass &&
-                    x.Name.EndsWith("Repository"))
-                .ToList();
+                    .Where(x =>
+                               !x.IsAbstract &&
+                               x.IsClass &&
+                               x.Name.EndsWith("Repository"))
+                    .ToList();
 
         foreach (Type repositoryType in repositories)
-        {
             services.AddTransient(repositoryType);
-        }
-        
+
         return services;
     }
 }

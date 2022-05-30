@@ -7,14 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\PapaMobileX.DTOs\PapaMobileX.DTOs.csproj" />
-	  <ProjectReference Include="..\PapaMobileX.Server.Entities\PapaMobileX.Server.Entities.csproj" />
+		<ProjectReference Include="..\PapaMobileX.DTOs\PapaMobileX.DTOs.csproj"/>
+		<ProjectReference Include="..\PapaMobileX.Server.Entities\PapaMobileX.Server.Entities.csproj"/>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-	    <HintPath>..\..\..\..\..\usr\local\share\dotnet\x64\shared\Microsoft.AspNetCore.App\6.0.2\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-	  </Reference>
+		<Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+			<HintPath>..\..\..\..\..\usr\local\share\dotnet\x64\shared\Microsoft.AspNetCore.App\6.0.2\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 </Project>

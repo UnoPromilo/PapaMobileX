@@ -6,19 +6,19 @@ namespace PapaMobileX.App.Shared.Commands.Concrete;
 
 public class AsyncCommand : IAsyncCommand
 {
-    public event EventHandler? CanExecuteChanged;
+    private readonly Func<bool>? _canExecute;
+    private readonly Func<Task> _execute;
 
     private bool _isExecuting;
-    private readonly Func<Task> _execute;
-    private readonly Func<bool>? _canExecute;
 
-    public AsyncCommand(
-        Func<Task> execute,
-        Func<bool>? canExecute = null)
+    public AsyncCommand(Func<Task> execute,
+                        Func<bool>? canExecute = null)
     {
         _execute = execute;
         _canExecute = canExecute;
     }
+
+    public event EventHandler? CanExecuteChanged;
 
     public bool CanExecute()
     {
@@ -34,13 +34,12 @@ public class AsyncCommand : IAsyncCommand
                 _isExecuting = true;
                 await _execute();
             }
-#if DEBUG
+            #if DEBUG
             catch (Exception ex)
             {
-
                 Debug.Write(ex);
             }
-#endif
+            #endif
             finally
             {
                 _isExecuting = false;
@@ -72,16 +71,17 @@ public class AsyncCommand : IAsyncCommand
 
 public class AsyncCommand<T> : IAsyncCommand<T>
 {
-    public event EventHandler? CanExecuteChanged;
-    private bool _isExecuting;
-    private readonly Func<T?, Task> _execute;
     private readonly Func<T?, bool>? _canExecute;
+    private readonly Func<T?, Task> _execute;
+    private bool _isExecuting;
 
     public AsyncCommand(Func<T?, Task> execute, Func<T?, bool>? canExecute = null)
     {
         _execute = execute;
         _canExecute = canExecute;
     }
+
+    public event EventHandler? CanExecuteChanged;
 
     public bool CanExecute(T? parameter)
     {

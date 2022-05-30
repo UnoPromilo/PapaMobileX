@@ -11,6 +11,7 @@ public class AccountsRepository
     {
         _context = context;
     }
+
     public Task<Account?> GetAccountByUserName(string userName)
     {
         return _context.Accounts.Where(u => u.UserName == userName).SingleOrDefaultAsync();

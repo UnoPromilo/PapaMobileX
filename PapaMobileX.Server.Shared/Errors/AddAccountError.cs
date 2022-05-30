@@ -14,7 +14,7 @@ public class AddAccountError : Error
     public HttpStatusCode StatusCode { get; }
 
     public override string Message { get; }
-    
+
     public static AddAccountError AccountAlreadyExist()
     {
         return new AddAccountError(HttpStatusCode.Conflict);

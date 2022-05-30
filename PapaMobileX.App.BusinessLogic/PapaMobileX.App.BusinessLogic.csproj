@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+	  <Reference Include="Microsoft.Maui">
+	    <HintPath>..\..\..\..\..\usr\local\share\dotnet\x64\packs\Microsoft.Maui.Core.Ref.maccatalyst\6.0.200-preview.12.2441\ref\net6.0-maccatalyst13.5\Microsoft.Maui.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Microsoft.Maui.Controls">
+	    <HintPath>..\..\..\..\..\usr\local\share\dotnet\x64\packs\Microsoft.Maui.Controls.Ref.ios\6.0.200-preview.12.2441\ref\net6.0-ios13.6\Microsoft.Maui.Controls.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="ResouceDictionary\Resources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="ResourceDictionary\Resources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="ResouceDictionary\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\PapaMobileX.App.Shared\PapaMobileX.App.Shared.csproj" />
+	  <ProjectReference Include="..\PapaMobileX.DTOs\PapaMobileX.DTOs.csproj" />
+	  <ProjectReference Include="..\PapaMobileX.Shared\PapaMobileX.Shared.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server", "PapaMobileX.Server\PapaMobileX.Server.csproj", "{29AB1F7A-8117-428D-9152-EA3A97302B16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.DataSource", "PapaMobileX.Server.DataSource\PapaMobileX.Server.DataSource.csproj", "{4258F85F-7425-446D-B672-33B06578F408}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Security", "PapaMobileX.Server.Security\PapaMobileX.Server.Security.csproj", "{CC2B7ECF-FA45-47A9-B212-45E93F27E0B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Shared", "PapaMobileX.Shared\PapaMobileX.Shared.csproj", "{219EC4A8-AA0C-4C11-B705-A9A4DA10ABBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Entities", "PapaMobileX.Server.Entities\PapaMobileX.Server.Entities.csproj", "{41839A39-34D4-4BB5-B88A-FE9274DFBD21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.BusinessLogic", "PapaMobileX.Server.BusinessLogic\PapaMobileX.Server.BusinessLogic.csproj", "{A51ADB98-178A-4717-AB96-19CFE122D075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.DTOs", "PapaMobileX.DTOs\PapaMobileX.DTOs.csproj", "{5956CF22-1D29-4B9B-947C-D914EFBECF85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Mappers", "PapaMobileX.Server.Mappers\PapaMobileX.Server.Mappers.csproj", "{211C928D-54D1-4A21-A164-F3A15A649813}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.App", "PapaMobileX.App\PapaMobileX.App.csproj", "{82143CA9-06BA-4A99-B65E-9794828FE5AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.App.BusinessLogic", "PapaMobileX.App.BusinessLogic\PapaMobileX.App.BusinessLogic.csproj", "{A7157C97-BEF6-49C4-87F1-E2F76671F4F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.App.Shared", "PapaMobileX.App.Shared\PapaMobileX.App.Shared.csproj", "{77334F51-3BDD-4550-8C21-646116F85483}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Shared", "PapaMobileX.Server.Shared\PapaMobileX.Server.Shared.csproj", "{6D3923AF-2658-4DC6-A946-047C1A500D14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29AB1F7A-8117-428D-9152-EA3A97302B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AB1F7A-8117-428D-9152-EA3A97302B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AB1F7A-8117-428D-9152-EA3A97302B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AB1F7A-8117-428D-9152-EA3A97302B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4258F85F-7425-446D-B672-33B06578F408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4258F85F-7425-446D-B672-33B06578F408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4258F85F-7425-446D-B672-33B06578F408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4258F85F-7425-446D-B672-33B06578F408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2B7ECF-FA45-47A9-B212-45E93F27E0B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2B7ECF-FA45-47A9-B212-45E93F27E0B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2B7ECF-FA45-47A9-B212-45E93F27E0B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2B7ECF-FA45-47A9-B212-45E93F27E0B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{219EC4A8-AA0C-4C11-B705-A9A4DA10ABBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{219EC4A8-AA0C-4C11-B705-A9A4DA10ABBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{219EC4A8-AA0C-4C11-B705-A9A4DA10ABBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{219EC4A8-AA0C-4C11-B705-A9A4DA10ABBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41839A39-34D4-4BB5-B88A-FE9274DFBD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41839A39-34D4-4BB5-B88A-FE9274DFBD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41839A39-34D4-4BB5-B88A-FE9274DFBD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41839A39-34D4-4BB5-B88A-FE9274DFBD21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A51ADB98-178A-4717-AB96-19CFE122D075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A51ADB98-178A-4717-AB96-19CFE122D075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A51ADB98-178A-4717-AB96-19CFE122D075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A51ADB98-178A-4717-AB96-19CFE122D075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5956CF22-1D29-4B9B-947C-D914EFBECF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5956CF22-1D29-4B9B-947C-D914EFBECF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5956CF22-1D29-4B9B-947C-D914EFBECF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5956CF22-1D29-4B9B-947C-D914EFBECF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{211C928D-54D1-4A21-A164-F3A15A649813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{211C928D-54D1-4A21-A164-F3A15A649813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{211C928D-54D1-4A21-A164-F3A15A649813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{211C928D-54D1-4A21-A164-F3A15A649813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82143CA9-06BA-4A99-B65E-9794828FE5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82143CA9-06BA-4A99-B65E-9794828FE5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82143CA9-06BA-4A99-B65E-9794828FE5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82143CA9-06BA-4A99-B65E-9794828FE5AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7157C97-BEF6-49C4-87F1-E2F76671F4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7157C97-BEF6-49C4-87F1-E2F76671F4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7157C97-BEF6-49C4-87F1-E2F76671F4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7157C97-BEF6-49C4-87F1-E2F76671F4F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77334F51-3BDD-4550-8C21-646116F85483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77334F51-3BDD-4550-8C21-646116F85483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77334F51-3BDD-4550-8C21-646116F85483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77334F51-3BDD-4550-8C21-646116F85483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

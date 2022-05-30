@@ -1,0 +1,47 @@
+﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:local="clr-namespace:PapaMobileX.App"
+             x:Class="PapaMobileX.App.App"
+             windows:Application.ImageDirectory="Assets">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="PrimaryColor">#FEB301</Color>
+            <Color x:Key="PrimaryColorGradientLeft">#FFCB46</Color>
+            <Color x:Key="PrimaryColorGradientRight">#FE9901</Color>
+            <Color x:Key="PrimaryColorLight">#FFDA7C</Color>
+            <Color x:Key="BackgroundColorDark">#FFEFC8</Color>
+            <Color x:Key="BackgroundColorLight">#FFFBF0</Color>
+            <Color x:Key="ErrorColor">#C82525</Color>
+            <Color x:Key="TextColorDark">#000000</Color>
+            <Color x:Key="TextColorLight">#FFFFFF</Color>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource TextColorDark}" />
+                <Setter Property="FontFamily" Value="RobotoRegular" />
+            </Style>
+            
+            <Style TargetType="Label" x:Key="LabelLight">
+                <Setter Property="TextColor" Value="{DynamicResource TextColorDark}" />
+                <Setter Property="FontFamily" Value="RobotoRegular" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource TextColorLight}" />
+                <Setter Property="FontFamily" Value="RobotoRegular" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="Padding" Value="14,10" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style TargetType="Entry" x:Key="LoginEntry">
+                <Setter Property="TextColor" Value="{DynamicResource TextColorDark}" />
+                <Setter Property="FontFamily" Value="RobotoRegular" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+

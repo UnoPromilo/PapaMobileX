@@ -1,0 +1,56 @@
+﻿using System.Net;
+using System.Reflection;
+using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
+using PapaMobileX.App.Effects;
+using PapaMobileX.App.Effects.Implementations;
+using Xamarin.CommunityToolkit.Effects;
+
+namespace PapaMobileX.App;
+
+public static class MauiProgram
+{
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .RegisterViews()
+            .RegisterViewModels()
+            .RegisterMappers()
+            .RegisterServices()
+            .UseMauiCommunityToolkit()
+            .ConfigureEffects(effects =>
+            {
+                effects.Add<TintImageEffect, TintImageEffectRouter>();
+            })
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("Roboto-Black.ttf", "RobotoBlack");
+                fonts.AddFont("Roboto-BlackItalic.ttf", "RobotoBlackItalic");
+                fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
+                fonts.AddFont("Roboto-BoldItalic.ttf", "RobotoBoldItalic");
+                fonts.AddFont("Roboto-Italic.ttf", "RobotoItalic");
+                fonts.AddFont("Roboto-Light.ttf", "RobotoLight");
+                fonts.AddFont("Roboto-LightItalic.ttf", "RobotoLightItalic");
+                fonts.AddFont("Roboto-Medium.ttf", "RobotoMedium");
+                fonts.AddFont("Roboto-MediumItalic.ttf", "RobotoMediumItalic");
+                fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
+                fonts.AddFont("Roboto-Thin.ttf", "RobotoThin");
+                fonts.AddFont("Roboto-ThinItalic.ttf", "RobotoThinItalic");
+            });
+
+        var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+        using var stream = Assembly
+            .GetExecutingAssembly()
+            .GetManifestResourceStream($"{assemblyName}.appsettings.json");
+
+        var config = new ConfigurationBuilder()
+            .AddJsonStream(stream)
+            .Build();
+
+        builder.Configuration.AddConfiguration(config);
+
+        return builder.Build();
+    }
+}

@@ -1,0 +1,98 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="clr-namespace:PapaMobileX.App.Effects"
+             xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
+             xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
+             xmlns:resourceDictionary="clr-namespace:PapaMobileX.App.BusinessLogic.ResourceDictionary;assembly=PapaMobileX.App.BusinessLogic"
+             x:DataType="viewModel:LoginViewModel"
+             x:Class="PapaMobileX.App.Views.LoginPage"
+             Title="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="{DynamicResource BackgroundColorDark}"
+          Padding="0"
+          RowDefinitions="Auto, *, Auto"
+          VerticalOptions="Fill">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="70"
+              HeightRequest="200"
+              HorizontalOptions="Fill">
+            <Image Source="logo"
+                   Margin="30, 40, 0, 0"/>
+            <Image Grid.Column="1"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   VerticalOptions="Start"
+                   Source="pope_clipped"
+                   Margin="0"/>
+        </Grid>
+        <StackLayout Grid.Row="1"
+              HorizontalOptions="Fill"
+              VerticalOptions="Center"
+              Spacing="20"
+              Padding="30,0">
+               <Label Text="{Binding ErrorMessage}"
+                      TextColor="{DynamicResource ErrorColor}"
+                      HorizontalOptions="Center"
+                      HeightRequest="40"
+                      FontSize="16"
+                      VerticalTextAlignment="Center"/>
+               <controls:LoginEntry x:Name="ServerAddressEntry"
+                                    IconSource="server"
+                                    Placeholder="{x:Static resourceDictionary:Resources.ServerAddress}"
+                                    Text="{Binding FormModel.Address}"
+                                    Keyboard="Url"/>
+               <controls:LoginEntry x:Name="UserNameEntry"
+                                    IconSource="user"
+                                    Placeholder="{x:Static resourceDictionary:Resources.UserName}"
+                                    Text="{Binding FormModel.UserName}"/>
+               <controls:LoginEntry x:Name="PasswordEntry"
+                                    IconSource="lock"
+                                    Placeholder="{x:Static resourceDictionary:Resources.Password}"
+                                    IsPassword="True"
+                                    Text="{Binding FormModel.Password}"/>
+               <Button Text="{x:Static resourceDictionary:Resources.LetsRide}"
+                       TextTransform="Uppercase"
+                       FontFamily="RobotoBold"
+                       HeightRequest="40"
+                       FontSize="18"
+                       Padding="40,0"
+                       HorizontalOptions="End"
+                       CornerRadius="20"
+                       Command="{Binding LoginCommand}"/>
+        </StackLayout>
+        <Grid Grid.Row="2"
+              RowDefinitions="30, Auto, 50, 30">
+           <Image Grid.Row="0"
+                  Grid.RowSpan="3"
+                  Aspect="AspectFill"
+                  Source="wave"
+                  Margin="0"
+                  effects:TintImageEffect.TintColor="{DynamicResource PrimaryColorLight}"/>
+            <Image Grid.Row="1"
+                   Grid.RowSpan="3"
+                   Aspect="AspectFill"
+                   Source="wave"
+                   Margin="0"
+                   effects:TintImageEffect.TintColor="{DynamicResource PrimaryColor}"/>
+            <Label Grid.Row="2"
+                   Style="{StaticResource LabelLight}"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="{DynamicResource TextColorLight}"
+                   FontSize="14"
+                   Padding="20, 0"
+                   FontFamily="RobotoBold"
+                   Text="{Binding Joke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   MaxLines="4"/>
+        </Grid>
+    </Grid>
+</ContentPage>
+
+
+

@@ -2,7 +2,7 @@ using Foundation;
 using PapaMobileX.App.Foundation.Enums;
 using UIKit;
 
-namespace PapaMobileX.App.Services.Concrete;
+namespace PapaMobileX.App.Foundation.Concrete;
 
 public partial class OrientationService
 {

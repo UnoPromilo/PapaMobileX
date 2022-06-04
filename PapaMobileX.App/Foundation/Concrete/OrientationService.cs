@@ -1,7 +1,7 @@
 using PapaMobileX.App.Foundation.Enums;
-using PapaMobileX.App.Foundation.Services;
+using PapaMobileX.App.Foundation.Interfaces;
 
-namespace PapaMobileX.App.Services.Concrete;
+namespace PapaMobileX.App.Foundation.Concrete;
 
 public partial class OrientationService : IOrientationService
 {

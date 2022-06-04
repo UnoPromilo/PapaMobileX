@@ -24,6 +24,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.App.Shared", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Shared", "PapaMobileX.Server.Shared\PapaMobileX.Server.Shared.csproj", "{6D3923AF-2658-4DC6-A946-047C1A500D14}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{A70C6F33-3C30-4B19-B11E-F47DE0250EA2}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionFiles\generate-cert.sh = SolutionFiles\generate-cert.sh
+		SolutionFiles\domains.ext = SolutionFiles\domains.ext
+		SolutionFiles\install-ca-on-android.sh = SolutionFiles\install-ca-on-android.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

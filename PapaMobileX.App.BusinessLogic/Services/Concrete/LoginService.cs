@@ -10,11 +10,13 @@ public class LoginService : ILoginService
 {
     private readonly IApiClientService _apiClientService;
     private readonly IHttpClientBuilder _httpClientBuilder;
+    private readonly ITokenService _tokenService;
 
-    public LoginService(IApiClientService apiClientService, IHttpClientBuilder httpClientBuilder)
+    public LoginService(IApiClientService apiClientService, IHttpClientBuilder httpClientBuilder, ITokenService tokenService)
     {
         _apiClientService = apiClientService;
         _httpClientBuilder = httpClientBuilder;
+        _tokenService = tokenService;
     }
 
     public async Task<Result<LoginError>> Login(LoginModel loginModel)
@@ -29,6 +31,7 @@ public class LoginService : ILoginService
         if (result.IsFailed)
             return result.Error;
 
+        _tokenService.SaveToken(result.Data.Token);
         return Result<LoginError>.Ok();
     }
 

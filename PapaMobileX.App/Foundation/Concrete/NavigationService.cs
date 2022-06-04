@@ -1,4 +1,4 @@
-using PapaMobileX.App.Foundation.Services;
+using PapaMobileX.App.Foundation.Interfaces;
 
 namespace PapaMobileX.App.Foundation.Concrete;
 

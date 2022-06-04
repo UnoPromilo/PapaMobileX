@@ -32,7 +32,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appicon.svg" Color="#FFEFC8" Resize="false"/>
+		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appicon.svg" Color="#FFEFC8" Resize="false" />
 		<MauiIcon Include="Resources\Images\pope.svg">
 			<ForegroundFile>Resources/appicon.svg</ForegroundFile>
 			<Color>#FFEFC8</Color>
@@ -40,37 +40,38 @@
 		</MauiIcon>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\splash_screen.svg" Color="#FFEFC8"/>
+		<MauiSplashScreen Include="Resources\splash_screen.svg" Color="#FFEFC8" />
 
 		<!-- Images -->
-		<MauiImage Include="Resources\Images\*"/>
+		<MauiImage Include="Resources\Images\*" />
 
 		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*"/>
+		<MauiFont Include="Resources\Fonts\*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0"/>
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30"/>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Resources\Styles"/>
+		<Folder Include="Behaviours" />
+		<Folder Include="Resources\Styles" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="1.0.0"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0"/>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0"/>
-		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0"/>
-		<PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="2.0.2-preview1013"/>
+		<PackageReference Include="CommunityToolkit.Maui" Version="1.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="2.0.2-preview1013" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PapaMobileX.App.BusinessLogic\PapaMobileX.App.BusinessLogic.csproj"/>
-		<ProjectReference Include="..\PapaMobileX.App.Shared\PapaMobileX.App.Shared.csproj"/>
+		<ProjectReference Include="..\PapaMobileX.App.BusinessLogic\PapaMobileX.App.BusinessLogic.csproj" />
+		<ProjectReference Include="..\PapaMobileX.App.Shared\PapaMobileX.App.Shared.csproj" />
 
 	</ItemGroup>
 
@@ -81,11 +82,11 @@
 
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) != true">
-		<Compile Remove="**\Foundation\Concrete\Android\**\*.cs"/>
-		<None Include="**\Foundation\Concrete\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+		<Compile Remove="**\Foundation\Concrete\Android\**\*.cs" />
+		<None Include="**\Foundation\Concrete\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 
-		<Compile Remove="**\Effects\Implementations\Android\**\*.cs"/>
-		<None Include="**\Effects\Implementations\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+		<Compile Remove="**\Effects\Implementations\Android\**\*.cs" />
+		<None Include="**\Effects\Implementations\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 		<Compile Update="Resources\ResouceDictionary\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -94,15 +95,18 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true AND $(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
-		<Compile Remove="**\Foundation\Concrete\iOS\**\*.cs"/>
-		<None Include="**\Foundation\Concrete\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+		<Compile Remove="**\Foundation\Concrete\iOS\**\*.cs" />
+		<None Include="**\Foundation\Concrete\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 
-		<Compile Remove="**\Effects\Implementations\iOS\**\*.cs"/>
-		<None Include="**\Effects\Implementations\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+		<Compile Remove="**\Effects\Implementations\iOS\**\*.cs" />
+		<None Include="**\Effects\Implementations\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="Microsoft.Extensions.Configuration.Binder"/>
+		<Reference Include="Microsoft.Extensions.Configuration.Binder" />
+		<Reference Include="Microsoft.iOS">
+		  <HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.iOS.Ref\15.4.303\ref\net6.0\Microsoft.iOS.dll</HintPath>
+		</Reference>
 		<Reference Include="Mono.Android">
 			<HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.Android.Ref.31\32.0.301\ref\net6.0\Mono.Android.dll</HintPath>
 		</Reference>
@@ -116,7 +120,32 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>ResourceDictionary.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<None Remove="appsettings.json"/>
-		<EmbeddedResource Include="appsettings.json"/>
+		<None Remove="appsettings.json" />
+		<EmbeddedResource Include="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="..\SolutionFiles\Certificate.crt">
+	    <Link>Certificates/Certificate.crt</Link>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="..\SolutionFiles\Certificate.csr">
+	    <Link>Certificates/Certificate.csr</Link>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="..\SolutionFiles\Certificate.key">
+	    <Link>Certificates/Certificate.key</Link>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="..\SolutionFiles\Certificate.pfx">
+	    <Link>Certificates/Certificate.pfx</Link>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="..\SolutionFiles\RootCA.crt">
+	    <Link>Certificates\RootCA.crt</Link>
+	  </Content>
+	  <Content Include="..\SolutionFiles\RootCA.key">
+	    <Link>Certificates\RootCA.key</Link>
+	  </Content>
 	</ItemGroup>
 </Project>

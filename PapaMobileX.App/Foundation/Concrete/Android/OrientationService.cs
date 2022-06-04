@@ -1,7 +1,7 @@
 using Android.Content.PM;
 using PapaMobileX.App.Foundation.Enums;
 
-namespace PapaMobileX.App.Services.Concrete;
+namespace PapaMobileX.App.Foundation.Concrete;
 
 public partial class OrientationService
 {

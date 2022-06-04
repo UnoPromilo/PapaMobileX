@@ -1,6 +1,6 @@
 using PapaMobileX.App.BusinessLogic.ViewModels;
 using PapaMobileX.App.Foundation.Enums;
-using PapaMobileX.App.Foundation.Services;
+using PapaMobileX.App.Foundation.Interfaces;
 
 namespace PapaMobileX.App.Views;
 

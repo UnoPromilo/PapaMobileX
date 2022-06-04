@@ -1,4 +1,4 @@
-namespace PapaMobileX.App.Foundation.Services;
+namespace PapaMobileX.App.Foundation.Interfaces;
 
 public interface INavigationService
 {

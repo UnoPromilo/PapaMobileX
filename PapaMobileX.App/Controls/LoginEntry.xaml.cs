@@ -1,3 +1,4 @@
+using Microsoft.Maui.LifecycleEvents;
 using PapaMobileX.App.Effects;
 
 namespace PapaMobileX.App.Controls;
@@ -8,7 +9,14 @@ public partial class LoginEntry : Border
         = BindableProperty.CreateAttached(nameof(TintColor),
                                           typeof(Color),
                                           typeof(LoginEntry),
-                                          default(Color),
+                                          App.PrimaryColor,
+                                          propertyChanged: OnColorChanged);
+    
+    public static readonly BindableProperty ErrorTintColorProperty
+        = BindableProperty.CreateAttached(nameof(ErrorTintColor),
+                                          typeof(Color),
+                                          typeof(LoginEntry),
+                                          App.ErrorColor,
                                           propertyChanged: OnColorChanged);
 
     public static readonly BindableProperty IconSourceProperty
@@ -46,6 +54,13 @@ public partial class LoginEntry : Border
                                           typeof(LoginEntry),
                                           Keyboard.Default,
                                           propertyChanged: OnKeyboardChanged);
+    
+    public static readonly BindableProperty ValidProperty
+        = BindableProperty.CreateAttached(nameof(Valid),
+                                          typeof(bool),
+                                          typeof(LoginEntry),
+                                          true,
+                                          propertyChanged: OnValidChanged);
 
     public LoginEntry()
     {
@@ -56,6 +71,12 @@ public partial class LoginEntry : Border
     {
         get => (Color)GetValue(TintColorProperty);
         set => SetValue(TintColorProperty, value);
+    }
+    
+    public Color ErrorTintColor
+    {
+        get => (Color)GetValue(ErrorTintColorProperty);
+        set => SetValue(ErrorTintColorProperty, value);
     }
 
     public ImageSource IconSource
@@ -87,14 +108,19 @@ public partial class LoginEntry : Border
         get => (Keyboard)GetValue(KeyboardProperty);
         set => SetValue(KeyboardProperty, value);
     }
+    
+    public bool Valid
+    {
+        get => (bool)GetValue(ValidProperty);
+        set => SetValue(ValidProperty, value);
+    }
 
     private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is LoginEntry loginEntry))
             return;
 
-        var color = newValue as Color;
-        loginEntry.SetColor(color!);
+        loginEntry.SetVaild(loginEntry.Valid);
     }
 
     private static void OnIconChanged(BindableObject bindable, object oldValue, object newValue)
@@ -136,6 +162,14 @@ public partial class LoginEntry : Border
 
         loginEntry.SetKeyboard((Keyboard)newValue);
     }
+    
+    private static void OnValidChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (!(bindable is LoginEntry loginEntry))
+            return;
+
+        loginEntry.SetVaild((bool)newValue);
+    }
 
     private void SetColor(Color color)
     {
@@ -168,5 +202,10 @@ public partial class LoginEntry : Border
     private void SetKeyboard(Keyboard keyboard)
     {
         InternalEntry.Keyboard = keyboard;
+    }
+    
+    private void SetVaild(bool valid)
+    {
+        SetColor(valid ? TintColor : ErrorTintColor);
     }
 }

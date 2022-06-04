@@ -1,4 +1,4 @@
-﻿using PapaMobileX.App.Foundation.Services;
+﻿using PapaMobileX.App.Foundation.Interfaces;
 using PapaMobileX.App.Views;
 
 namespace PapaMobileX.App;
@@ -12,4 +12,7 @@ public partial class App : Application
         MainPage = new NavigationPage();
         _ = navigationService.NavigateToPage<LoginPage>();
     }
+
+    public static Color ErrorColor => Color.FromArgb("C82525");
+    public static Color PrimaryColor => Color.FromArgb("FEB301");
 }

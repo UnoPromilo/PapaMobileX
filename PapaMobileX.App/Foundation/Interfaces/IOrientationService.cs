@@ -1,6 +1,6 @@
 using PapaMobileX.App.Foundation.Enums;
 
-namespace PapaMobileX.App.Foundation.Services;
+namespace PapaMobileX.App.Foundation.Interfaces;
 
 public interface IOrientationService
 {

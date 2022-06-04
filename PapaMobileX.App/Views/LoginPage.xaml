@@ -42,17 +42,29 @@
             <controls:LoginEntry x:Name="ServerAddressEntry"
                                  IconSource="server"
                                  Placeholder="{x:Static resourceDictionary:Resources.ServerAddress}"
-                                 Text="{Binding FormModel.Address}"
-                                 Keyboard="Url" />
+                                 Text="{Binding ServerAddress}"
+                                 Keyboard="Url"
+                                 TintColor="{DynamicResource PrimaryColor}"
+                                 ErrorTintColor="{DynamicResource ErrorColor}"
+                                 Valid="{Binding IsServerAddressValid}">
+            </controls:LoginEntry>
             <controls:LoginEntry x:Name="UserNameEntry"
                                  IconSource="user"
                                  Placeholder="{x:Static resourceDictionary:Resources.UserName}"
-                                 Text="{Binding FormModel.UserName}" />
+                                 Text="{Binding UserName}" 
+                                 TintColor="{DynamicResource PrimaryColor}"
+                                 ErrorTintColor="{DynamicResource ErrorColor}"
+                                 Valid="{Binding IsUserNameValid}">
+            </controls:LoginEntry>
             <controls:LoginEntry x:Name="PasswordEntry"
                                  IconSource="lock"
                                  Placeholder="{x:Static resourceDictionary:Resources.Password}"
                                  IsPassword="True"
-                                 Text="{Binding FormModel.Password}" />
+                                 Text="{Binding Password}"
+                                 TintColor="{DynamicResource PrimaryColor}"
+                                 ErrorTintColor="{DynamicResource ErrorColor}"
+                                 Valid="{Binding IsPasswordValid}">
+            </controls:LoginEntry>
             <Button Text="{x:Static resourceDictionary:Resources.LetsRide}"
                     TextTransform="Uppercase"
                     FontFamily="RobotoBold"

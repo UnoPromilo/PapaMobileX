@@ -1,6 +1,8 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using PapaMobileX.App.BusinessLogic.Builders.Concrete;
+using PapaMobileX.App.BusinessLogic.HubClients.Abstraction;
+using PapaMobileX.App.BusinessLogic.HubClients.Concrete;
 using PapaMobileX.App.BusinessLogic.Mappers.Abstraction;
 using PapaMobileX.App.BusinessLogic.Services.Concrete;
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
@@ -19,12 +21,20 @@ public static class DependencyInjection
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
     {
         builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<SteeringPage>();
         return builder;
     }
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
         builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<SteeringViewModel>();
+        return builder;
+    }
+    
+    public static MauiAppBuilder RegisterHubClients(this MauiAppBuilder builder)
+    {
+        builder.Services.AddTransient<IHubClient, TestHubClient>();
         return builder;
     }
 
@@ -70,10 +80,12 @@ public static class DependencyInjection
         builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
         builder.Services.AddSingleton<ITokenService, TokenService>();
         builder.Services.AddSingleton<IHttpClientHandlerBuilder, HttpClientHandlerBuilder>();
+        builder.Services.AddSingleton<ISignalRConnectionService, SignalRConnectionService>();
 
         builder.Services.AddScoped<ILoginService, LoginService>();
         builder.Services.AddScoped<IApiClientService, ApiClientService>();
         builder.Services.AddScoped<ILoginDataService, LoginDataService>();
+        builder.Services.AddScoped<ILogoutService, LogoutService>();
 
         return builder;
     }

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
@@ -13,6 +14,7 @@ public class HttpClientService : IHttpClientService
 {
     private const string ContentTypeHeaderValue = "application/json";
     private readonly IHttpClientBuilder _httpClientBuilder;
+    private readonly ITokenService _tokenService;
 
     private readonly JsonSerializerOptions _serializerOptions = new()
     {
@@ -22,9 +24,10 @@ public class HttpClientService : IHttpClientService
     private readonly object _tokenUsageLock = new();
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    public HttpClientService(IHttpClientBuilder httpClientBuilder)
+    public HttpClientService(IHttpClientBuilder httpClientBuilder, ITokenService tokenService)
     {
         _httpClientBuilder = httpClientBuilder;
+        _tokenService = tokenService;
     }
 
     public async Task<Result<HttpError, T?>> GetAsync<T>(string resource, CancellationToken cancellationToken = default)
@@ -36,6 +39,14 @@ public class HttpClientService : IHttpClientService
             return response.Error;
 
         return await DeserializeResponse<T>(response.Data);
+    }
+    
+    public async Task<Result<HttpError>> GetAsync(string resource, CancellationToken cancellationToken = default)
+    {
+        using Result<HttpError, HttpResponseMessage> response =
+            await InternalSendAsync(HttpMethod.Get, resource, null, cancellationToken);
+
+        return response.IsFailed ? response.Error : Result<HttpError>.Ok();
     }
 
     public async Task<Result<HttpError, T?>> PostAsync<T>(string resource,
@@ -104,6 +115,12 @@ public class HttpClientService : IHttpClientService
                 httpRequestMessage.Content = new StringContent(serializeBody, Encoding.UTF8, ContentTypeHeaderValue);
             }
 
+            if (_tokenService.IsTokenValid)
+            {
+                httpRequestMessage.Headers.Authorization =
+                    new AuthenticationHeaderValue("Bearer", _tokenService.Token!.ToString());
+            }
+            
             HttpResponseMessage responseMessage =
                 await httpClient.SendAsync(httpRequestMessage, combinedCancellationToken);
 

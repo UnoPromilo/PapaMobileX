@@ -6,6 +6,7 @@ using PapaMobileX.App.Shared.Errors;
 using PapaMobileX.DTOs.Requests;
 using PapaMobileX.DTOs.Responses;
 using PapaMobileX.Shared.Results;
+using PapaMobileX.Shared.Results.Errors;
 
 namespace PapaMobileX.App.BusinessLogic.Services.Concrete;
 
@@ -46,6 +47,11 @@ public class ApiClientService : IApiClientService
 
         LoginResultModel resultModel = _loginResultModelMapper.Map(result.Data!);
         return resultModel;
+    }
+
+    public async Task<Result<HttpError>> TestConnectionAsync(CancellationToken cancellationToken = default)
+    {
+        return await _httpClientService.GetAsync(Constants.ApiEndpoints.TokenCheck, cancellationToken);
     }
 
     public void CancelAllRequests()

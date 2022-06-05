@@ -14,4 +14,6 @@ public interface IHttpClientService
     Task<Result<HttpError>> PostAsync(string resource, object body, CancellationToken cancellationToken = default);
 
     void CancelAllRequests();
+
+    Task<Result<HttpError>> GetAsync(string resource, CancellationToken cancellationToken = default);
 }

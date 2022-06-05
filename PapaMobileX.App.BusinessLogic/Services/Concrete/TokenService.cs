@@ -7,6 +7,12 @@ public class TokenService : ITokenService
 {
     private readonly JwtSecurityTokenHandler _tokenHandler;
     public JwtSecurityToken? Token { get; private set; }
+
+    public Task<string?> GetTokenAsync()
+    {
+        return Task.FromResult(Token?.ToString());
+    }
+
     public bool IsTokenValid => ValidateToken();
 
     public TokenService()

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>PapaMobileX.App</RootNamespace>
@@ -87,11 +87,6 @@
 
 		<Compile Remove="**\Effects\Implementations\Android\**\*.cs" />
 		<None Include="**\Effects\Implementations\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-		<Compile Update="Resources\ResouceDictionary\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>ResourceDictionary.resx</DependentUpon>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true AND $(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
@@ -101,7 +96,15 @@
 		<Compile Remove="**\Effects\Implementations\iOS\**\*.cs" />
 		<None Include="**\Effects\Implementations\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<Compile Update="Resources\ResouceDictionary\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ResourceDictionary.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	
 	<ItemGroup>
 		<Reference Include="Microsoft.Extensions.Configuration.Binder" />
 		<Reference Include="Microsoft.iOS">

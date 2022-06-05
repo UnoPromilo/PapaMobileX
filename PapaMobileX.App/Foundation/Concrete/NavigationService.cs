@@ -1,10 +1,19 @@
+using PapaMobileX.App.BusinessLogic.Services.Interfaces;
+using PapaMobileX.App.BusinessLogic.ViewModels;
 using PapaMobileX.App.Foundation.Interfaces;
+using PapaMobileX.App.Views;
 
 namespace PapaMobileX.App.Foundation.Concrete;
 
 public class NavigationService : INavigationService
 {
     private readonly IServiceProvider _services;
+
+    public static Dictionary<Type, Type> ViewViewModel = new()
+    {
+        { typeof(LoginViewModel), typeof(LoginPage) },
+        { typeof(SteeringViewModel), typeof(SteeringPage) },
+    };
 
     public NavigationService(IServiceProvider services)
     {
@@ -22,10 +31,14 @@ public class NavigationService : INavigationService
         }
     }
 
-    public async Task NavigateToPage<T>(object? parameter = null) where T : Page
+    public async Task NavigateToPageByViewModelAsync<T>(object? parameter = null)
     {
-        var toPage = ResolvePage<T>();
-        await Navigation.PushAsync(toPage, true);
+        if (ViewViewModel.ContainsKey(typeof(T)))
+        {
+            var pageType = ViewViewModel[typeof(T)];
+            var toPage = ResolvePage(pageType);
+            await Navigation.PushAsync(toPage as Page, true);
+        }
     }
 
     public Task NavigateBack()
@@ -35,8 +48,8 @@ public class NavigationService : INavigationService
         throw new InvalidOperationException("No pages to navigate back to!");
     }
 
-    private T ResolvePage<T>() where T : Page
+    private object ResolvePage(Type type)
     {
-        return (T)_services.GetService(typeof(T))!;
+        return _services.GetService(type)!;
     }
 }

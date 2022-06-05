@@ -7,5 +7,6 @@ internal static class Constants
     public static class ApiEndpoints
     {
         public static string Login => "login";
+        public static string TokenCheck => "tokenCheck";
     }
 }

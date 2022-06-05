@@ -1,13 +1,15 @@
 using PapaMobileX.Server.BusinessLogic;
 using PapaMobileX.Server.Configuration;
 using PapaMobileX.Server.DataSource;
+using PapaMobileX.Server.Hubs;
 using PapaMobileX.Server.Mappers;
 using PapaMobileX.Server.Security;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLogging();
+builder.Services.AddSignalR();
 builder.Services
+       .AddLogging()
        .ConfigureSwagger()
        .ConfigureMappers()
        .ConfigureBusinessLogic()
@@ -30,6 +32,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<TestHub>("/testHub");
 
 //Ugly hack, to redo later
 app.Urls.Add("https://0.0.0.0:443");

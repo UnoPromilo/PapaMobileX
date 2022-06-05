@@ -15,6 +15,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .RegisterViews()
             .RegisterViewModels()
+            .RegisterHubClients()
             .RegisterMappers()
             .RegisterServices()
             .UseMauiCommunityToolkit()

@@ -1,5 +1,6 @@
 using PapaMobileX.App.BusinessLogic.Models;
 using PapaMobileX.App.BusinessLogic.ResourceDictionary;
+using PapaMobileX.App.BusinessLogic.Services.Concrete;
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.BusinessLogic.ViewModels.Abstractions;
 using PapaMobileX.App.Shared.Commands.Concrete;
@@ -13,20 +14,33 @@ public class LoginViewModel : BaseViewModel
 {
     private readonly ILoginService _loginService;
     private readonly ILoginDataService _loginDataService;
+    private readonly ITokenService _tokenService;
+    private readonly INavigationService _navigationService;
+    private readonly IApiClientService _apiClientService;
+    private readonly ILogoutService _logoutService;
     private readonly IRandomJokeService _randomJokeService;
     private string _userName = String.Empty;
     private string _password = String.Empty;
     private string _serverAddress = String.Empty;
     private string _joke = Resources.Loading;
+    private bool _loginInProgress = false;
 
-    public LoginViewModel(IRandomJokeService randomJokeService, ILoginService loginService, ILoginDataService loginDataService)
+    public LoginViewModel(IRandomJokeService randomJokeService, ILoginService loginService, ILoginDataService loginDataService, ITokenService tokenService, INavigationService navigationService, IApiClientService apiClientService, ILogoutService logoutService)
     {
         _randomJokeService = randomJokeService;
         _loginService = loginService;
         _loginDataService = loginDataService;
+        _tokenService = tokenService;
+        _navigationService = navigationService;
+        _apiClientService = apiClientService;
+        _logoutService = logoutService;
         _ = RefreshJokeAsync();
         _ = LoadLoginDataAsync();
-        LoginCommand = new AsyncCommand(Login);
+        LoginCommand = new AsyncCommand(Login, CanExecuteLogin);
+        if (tokenService.IsTokenValid)
+        {
+            _ = TryToReconnect();
+        }
     }
 
     public string Joke
@@ -87,6 +101,7 @@ public class LoginViewModel : BaseViewModel
 
     private async Task Login()
     {
+        UpdateLoginInProgress(true);
         var model = new LoginModel
         {
             Address = ServerAddress,
@@ -118,8 +133,41 @@ public class LoginViewModel : BaseViewModel
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            return;
         }
-
         _ = _loginDataService.SaveLoginModelAsync(model);
+        await _navigationService.NavigateToPageByViewModelAsync<SteeringViewModel>();
+        UpdateLoginInProgress(false);
+    }
+
+    private async Task TryToReconnect()
+    {
+        UpdateLoginInProgress(true);
+        Result<HttpError> result = await _apiClientService.TestConnectionAsync();
+        if (result.IsSuccess)
+        {
+            await _loginService.InitializeConnectionAsync();
+            await _navigationService.NavigateToPageByViewModelAsync<SteeringViewModel>();
+        }
+        else
+        {
+            _logoutService.Logout();
+        }
+        UpdateLoginInProgress(false);
+    }
+    
+    
+    private bool CanExecuteLogin()
+    {
+        return _loginInProgress;
+    }
+
+    private void UpdateLoginInProgress(bool newValue)
+    {
+        if (newValue == _loginInProgress)
+            return;
+        
+        _loginInProgress = newValue;
+        LoginCommand.RaiseCanExecuteChanged();
     }
 }

@@ -1,0 +1,14 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="clr-namespace:PapaMobileX.App.Effects"
+             xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
+             xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
+             xmlns:resourceDictionary="clr-namespace:PapaMobileX.App.BusinessLogic.ResourceDictionary;assembly=PapaMobileX.App.BusinessLogic"
+             x:DataType="viewModel:SteeringViewModel"
+             x:Class="PapaMobileX.App.Views.SteeringPage"
+             Title="">
+    <ContentPage.Resources>
+        <ResourceDictionary />
+    </ContentPage.Resources>
+    
+</ContentPage>

@@ -32,6 +32,11 @@ public class LoginService : ILoginService
             return result.Error;
 
         _tokenService.SaveToken(result.Data.Token);
+        return await InitializeConnectionAsync();
+    }
+
+    public async Task<Result<LoginError>> InitializeConnectionAsync()
+    {
         return Result<LoginError>.Ok();
     }
 

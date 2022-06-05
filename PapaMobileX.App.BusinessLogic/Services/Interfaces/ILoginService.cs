@@ -7,4 +7,6 @@ namespace PapaMobileX.App.BusinessLogic.Services.Interfaces;
 public interface ILoginService
 {
     public Task<Result<LoginError>> Login(LoginModel loginModel);
+
+    Task<Result<LoginError>> InitializeConnectionAsync();
 }

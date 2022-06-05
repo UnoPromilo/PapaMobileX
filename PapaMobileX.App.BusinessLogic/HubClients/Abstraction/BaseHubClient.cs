@@ -11,17 +11,19 @@ public abstract class BaseHubClient : IHubClient
 {
     private const int StartRetryCount = 3;
     private const int DelayBetweenRetrySeconds = 3;
-    protected HubConnection? InternalHubConnection { get; private set; }
+    private readonly ILogger<BaseHubClient> _logger;
 
     private readonly ITokenService _tokenService;
-    private readonly ILogger<BaseHubClient> _logger;
 
     protected BaseHubClient(ITokenService tokenService, ILogger<BaseHubClient> logger)
     {
         _tokenService = tokenService;
         _logger = logger;
     }
+
+    protected HubConnection? InternalHubConnection { get; private set; }
     protected abstract string Path { get; }
+
     public abstract bool CanSupportMessage(object message);
 
     public virtual Task<Result<HubError>> SendMessage(object dto)
@@ -36,24 +38,11 @@ public abstract class BaseHubClient : IHubClient
         return Task.FromResult(Result<HubError>.Ok());
     }
 
-    [MemberNotNull(nameof(InternalHubConnection))]
-    protected virtual void Build(Uri serverAddress)
-    {
-        InternalHubConnection = new HubConnectionBuilder()
-                                .WithUrl($"{serverAddress}{Path}",
-                                         options =>
-                                         {
-                                             options.AccessTokenProvider = () => Task.FromResult(_tokenService.Token);
-                                         })
-                                .WithAutomaticReconnect(new SignalrRetryPolicy())
-                                .Build();
-    }
-
     public async Task<Result<HubError>> StartConnectionAsync(Uri serverAddress)
     {
         if (InternalHubConnection is null)
             Build(serverAddress);
-        
+
         if (InternalHubConnection.State != HubConnectionState.Disconnected)
             return HubError.HubAlreadyStarted();
 
@@ -72,12 +61,13 @@ public abstract class BaseHubClient : IHubClient
                 _logger.LogError(ex, ex.Message);
             }
         }
+
         return HubError.ProblemDuringStartupAttempt();
     }
 
     public async Task<Result<HubError>> StopConnectionAsync()
     {
-        if (InternalHubConnection is null || InternalHubConnection.State == HubConnectionState.Disconnected)
+        if (InternalHubConnection is null || (InternalHubConnection.State == HubConnectionState.Disconnected))
             return HubError.ProblemDuringStopAttempt();
 
         await InternalHubConnection.StopAsync();
@@ -88,11 +78,23 @@ public abstract class BaseHubClient : IHubClient
 
     public bool IsRunning => InternalHubConnection?.State is not (HubConnectionState.Disconnected or null);
 
+    [MemberNotNull(nameof(InternalHubConnection))]
+    protected virtual void Build(Uri serverAddress)
+    {
+        InternalHubConnection = new HubConnectionBuilder()
+                                .WithUrl($"{serverAddress}{Path}",
+                                         options =>
+                                         {
+                                             options.AccessTokenProvider = () => Task.FromResult(_tokenService.Token);
+                                         })
+                                .WithAutomaticReconnect(new SignalrRetryPolicy())
+                                .Build();
+    }
+
     private class SignalrRetryPolicy : IRetryPolicy
     {
         public TimeSpan? NextRetryDelay(RetryContext retryContext)
         {
-
             if (retryContext.PreviousRetryCount > 3)
                 return TimeSpan.FromSeconds(10);
 

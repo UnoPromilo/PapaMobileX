@@ -17,26 +17,26 @@ public class LoginError : Error
 
     public static LoginError WrongCredentials()
     {
-        return new(LoginErrorType.InvalidCredentials, "Login failed. Invalid credentials.");
+        return new LoginError(LoginErrorType.InvalidCredentials, "Login failed. Invalid credentials.");
     }
 
     public static LoginError ServerNotFound()
     {
-        return new(LoginErrorType.ServerNotFound, "Login failed. Server not found.");
+        return new LoginError(LoginErrorType.ServerNotFound, "Login failed. Server not found.");
     }
 
     public static LoginError InvalidUriFormat()
     {
-        return new(LoginErrorType.InvalidUri, "Login failed. Given address is in invalid format.");
+        return new LoginError(LoginErrorType.InvalidUri, "Login failed. Given address is in invalid format.");
     }
 
     public static LoginError Timeout()
     {
-        return new(LoginErrorType.Timeout, "Login failed. Timeout.");
+        return new LoginError(LoginErrorType.Timeout, "Login failed. Timeout.");
     }
 
     public static LoginError OtherError()
     {
-        return new(LoginErrorType.Other, "Login failed.");
+        return new LoginError(LoginErrorType.Other, "Login failed.");
     }
 }

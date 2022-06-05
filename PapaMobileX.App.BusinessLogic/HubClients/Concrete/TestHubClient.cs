@@ -9,10 +9,10 @@ using PapaMobileX.Shared.Results;
 namespace PapaMobileX.App.BusinessLogic.HubClients.Concrete;
 
 public class TestHubClient : BaseHubClient
-{ 
-    protected override string Path => "hubs/test";
-
+{
     public TestHubClient(ITokenService tokenService, ILogger<TestHubClient> logger) : base(tokenService, logger) { }
+
+    protected override string Path => "hubs/test";
 
     protected override void Build(Uri serverAddress)
     {
@@ -30,7 +30,7 @@ public class TestHubClient : BaseHubClient
         Result<HubError> baseResult = await base.SendMessage(dto);
         if (baseResult.IsFailed)
             return baseResult;
-        
+
         await InternalHubConnection!.SendAsync("SendMessage", dto);
         return Result<HubError>.Ok();
     }
@@ -40,5 +40,4 @@ public class TestHubClient : BaseHubClient
         //TODO
         return Task.CompletedTask;
     }
-    
 }

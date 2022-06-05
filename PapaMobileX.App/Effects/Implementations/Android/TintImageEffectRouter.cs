@@ -14,7 +14,7 @@ public partial class TintImageEffectRouter
 {
     private partial void OnAttachedInternal()
     {
-        if (Control == null || Element == null)
+        if ((Control == null) || (Element == null))
             return;
 
         Color? color = TintImageEffect.GetTintColor(Element);
@@ -50,9 +50,7 @@ public partial class TintImageEffectRouter
     private static void SetImageViewTintColor(ImageView image, Color? color)
     {
         if (color == default(Color))
-        {
             image.ClearColorFilter();
-        }
 
         image.SetColorFilter(new PorterDuffColorFilter(color!.ToPlatform(), PorterDuff.Mode.SrcIn!));
     }

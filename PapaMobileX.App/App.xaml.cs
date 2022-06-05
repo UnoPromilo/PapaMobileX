@@ -1,7 +1,5 @@
 ﻿using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.BusinessLogic.ViewModels;
-using PapaMobileX.App.Foundation.Interfaces;
-using PapaMobileX.App.Views;
 
 namespace PapaMobileX.App;
 

@@ -36,6 +36,6 @@
                ReturnType="Next"
                FontFamily="RobotoRegular"
                VerticalOptions="Fill"
-               Background="Transparent"/>
+               Background="Transparent" />
     </Grid>
 </Border>

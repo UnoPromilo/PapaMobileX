@@ -10,8 +10,8 @@ public class LoginService : ILoginService
 {
     private readonly IApiClientService _apiClientService;
     private readonly IHttpClientBuilder _httpClientBuilder;
-    private readonly ITokenService _tokenService;
     private readonly ISignalRConnectionService _signalRConnectionService;
+    private readonly ITokenService _tokenService;
 
     public LoginService(IApiClientService apiClientService,
                         IHttpClientBuilder httpClientBuilder,
@@ -42,7 +42,8 @@ public class LoginService : ILoginService
 
     public async Task<Result<LoginError>> InitializeConnectionAsync()
     {
-        Result<HubError> result = await _signalRConnectionService.StartConnectionAsync(_httpClientBuilder.MainHttpClientBaseAddress!);
+        Result<HubError> result =
+            await _signalRConnectionService.StartConnectionAsync(_httpClientBuilder.MainHttpClientBaseAddress!);
         if (result.IsFailed)
             return LoginError.OtherError();
         return Result<LoginError>.Ok();

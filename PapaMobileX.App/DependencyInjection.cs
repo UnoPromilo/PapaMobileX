@@ -12,7 +12,6 @@ using PapaMobileX.App.Foundation.Interfaces;
 using PapaMobileX.App.Shared;
 using PapaMobileX.App.Views;
 using IHttpClientBuilder = PapaMobileX.App.BusinessLogic.Builders.Interfaces.IHttpClientBuilder;
-using OrientationService = PapaMobileX.App.Foundation.Concrete.OrientationService;
 
 namespace PapaMobileX.App;
 
@@ -31,7 +30,7 @@ public static class DependencyInjection
         builder.Services.AddTransient<SteeringViewModel>();
         return builder;
     }
-    
+
     public static MauiAppBuilder RegisterHubClients(this MauiAppBuilder builder)
     {
         builder.Services.AddSingleton<IHubClient, TestHubClient>();
@@ -67,7 +66,8 @@ public static class DependencyInjection
                                        httpClient =>
                                        {
                                            httpClient.BaseAddress =
-                                               new Uri(builder.Configuration.GetValue<string>(Constants.JokeServiceAddressKey));
+                                               new Uri(builder.Configuration.GetValue<string>(Constants
+                                                                                                  .JokeServiceAddressKey));
                                        });
 
         builder.Services.AddHttpClient(SharedConstants.MainHttpClient);

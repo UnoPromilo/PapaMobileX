@@ -1,4 +1,3 @@
-using Microsoft.Maui.LifecycleEvents;
 using PapaMobileX.App.Effects;
 
 namespace PapaMobileX.App.Controls;
@@ -11,7 +10,7 @@ public partial class LoginEntry : Border
                                           typeof(LoginEntry),
                                           App.PrimaryColor,
                                           propertyChanged: OnColorChanged);
-    
+
     public static readonly BindableProperty ErrorTintColorProperty
         = BindableProperty.CreateAttached(nameof(ErrorTintColor),
                                           typeof(Color),
@@ -54,7 +53,7 @@ public partial class LoginEntry : Border
                                           typeof(LoginEntry),
                                           Keyboard.Default,
                                           propertyChanged: OnKeyboardChanged);
-    
+
     public static readonly BindableProperty ValidProperty
         = BindableProperty.CreateAttached(nameof(Valid),
                                           typeof(bool),
@@ -72,7 +71,7 @@ public partial class LoginEntry : Border
         get => (Color)GetValue(TintColorProperty);
         set => SetValue(TintColorProperty, value);
     }
-    
+
     public Color ErrorTintColor
     {
         get => (Color)GetValue(ErrorTintColorProperty);
@@ -108,7 +107,7 @@ public partial class LoginEntry : Border
         get => (Keyboard)GetValue(KeyboardProperty);
         set => SetValue(KeyboardProperty, value);
     }
-    
+
     public bool Valid
     {
         get => (bool)GetValue(ValidProperty);
@@ -162,7 +161,7 @@ public partial class LoginEntry : Border
 
         loginEntry.SetKeyboard((Keyboard)newValue);
     }
-    
+
     private static void OnValidChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is LoginEntry loginEntry))
@@ -203,7 +202,7 @@ public partial class LoginEntry : Border
     {
         InternalEntry.Keyboard = keyboard;
     }
-    
+
     private void SetVaild(bool valid)
     {
         SetColor(valid ? TintColor : ErrorTintColor);

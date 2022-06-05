@@ -17,6 +17,6 @@ public class LoginError : Error
 
     public static LoginError WrongCredentials()
     {
-        return new(HttpStatusCode.NotFound, "Login failed. Invalid credentials.");
+        return new LoginError(HttpStatusCode.NotFound, "Login failed. Invalid credentials.");
     }
 }

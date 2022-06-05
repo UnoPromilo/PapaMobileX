@@ -13,7 +13,7 @@ public class SignalRSender : ISignalRSender
     {
         _hubClients = hubClients;
     }
-    
+
     public async Task<Result<HubError>> SendMessage(object message)
     {
         Result<HubError>[] results = await Task.WhenAll(_hubClients
@@ -24,7 +24,7 @@ public class SignalRSender : ISignalRSender
 
         if (results.Any(r => r.IsFailed))
             return results.First(r => r.IsFailed);
-        
+
         return Result<HubError>.Ok();
     }
 }

@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PapaMobileX.Shared\PapaMobileX.Shared.csproj" />
+		<ProjectReference Include="..\PapaMobileX.Shared\PapaMobileX.Shared.csproj"/>
 	</ItemGroup>
 
 </Project>

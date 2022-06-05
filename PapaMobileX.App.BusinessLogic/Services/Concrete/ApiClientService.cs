@@ -6,7 +6,6 @@ using PapaMobileX.App.Shared.Errors;
 using PapaMobileX.DTOs.Requests;
 using PapaMobileX.DTOs.Responses;
 using PapaMobileX.Shared.Results;
-using PapaMobileX.Shared.Results.Errors;
 
 namespace PapaMobileX.App.BusinessLogic.Services.Concrete;
 

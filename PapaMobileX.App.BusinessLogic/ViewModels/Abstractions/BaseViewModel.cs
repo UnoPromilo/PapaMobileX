@@ -6,10 +6,11 @@ namespace PapaMobileX.App.BusinessLogic.ViewModels.Abstractions;
 
 public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     private readonly IDictionary<string, IList<string>> _errorsByPropertyName =
         new Dictionary<string, IList<string>>();
+
+    public virtual string ErrorMessage =>
+        _errorsByPropertyName.SelectMany(e => e.Value).FirstOrDefault() ?? String.Empty;
 
     public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
@@ -18,15 +19,14 @@ public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorIn
     {
         return _errorsByPropertyName.Where(e => e.Key == propertyName).SelectMany(e => e.Value);
     }
-    
-    public IList GetErrors([CallerMemberName]string? propertyName = null)
+
+    public bool HasErrors => _errorsByPropertyName.Any(e => e.Key != String.Empty);
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public IList GetErrors([CallerMemberName] string? propertyName = null)
     {
         return _errorsByPropertyName.Where(e => e.Key == propertyName).SelectMany(e => e.Value).ToList();
     }
-
-    public bool HasErrors => _errorsByPropertyName.Any(e => e.Key != String.Empty);
-    
-    public virtual string ErrorMessage => _errorsByPropertyName.SelectMany(e=>e.Value).FirstOrDefault() ?? String.Empty;
 
     protected void AddError(string error = "", [CallerMemberName] string propertyName = "")
     {
@@ -39,17 +39,17 @@ public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorIn
             OnErrorsChanged(propertyName);
         }
     }
-    
+
     protected void ClearErrors(string? propertyName = null)
     {
         if (propertyName is null)
             _errorsByPropertyName.Clear();
-        
+
         else
             _errorsByPropertyName.Remove(propertyName);
         OnErrorsChanged(propertyName);
     }
-    
+
     protected virtual void OnErrorsChanged(string? propertyName)
     {
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));

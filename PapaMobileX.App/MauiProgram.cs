@@ -37,7 +37,7 @@ public static class MauiProgram
                 fonts.AddFont("Roboto-Thin.ttf", "RobotoThin");
                 fonts.AddFont("Roboto-ThinItalic.ttf", "RobotoThinItalic");
             });
-        
+
         string? assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
         using Stream? stream = Assembly
                                .GetExecutingAssembly()

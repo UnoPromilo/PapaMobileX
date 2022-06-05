@@ -1,6 +1,3 @@
 namespace PapaMobileX.DTOs.SignalR;
 
-public class TestDTO
-{
-    
-}
+public class TestDTO { }

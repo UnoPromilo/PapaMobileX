@@ -1,19 +1,18 @@
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.BusinessLogic.ViewModels;
-using PapaMobileX.App.Foundation.Interfaces;
 using PapaMobileX.App.Views;
 
 namespace PapaMobileX.App.Foundation.Concrete;
 
 public class NavigationService : INavigationService
 {
-    private readonly IServiceProvider _services;
-
     public static Dictionary<Type, Type> ViewViewModel = new()
     {
         { typeof(LoginViewModel), typeof(LoginPage) },
-        { typeof(SteeringViewModel), typeof(SteeringPage) },
+        { typeof(SteeringViewModel), typeof(SteeringPage) }
     };
+
+    private readonly IServiceProvider _services;
 
     public NavigationService(IServiceProvider services)
     {
@@ -35,8 +34,8 @@ public class NavigationService : INavigationService
     {
         if (ViewViewModel.ContainsKey(typeof(T)))
         {
-            var pageType = ViewViewModel[typeof(T)];
-            var toPage = ResolvePage(pageType);
+            Type pageType = ViewViewModel[typeof(T)];
+            object toPage = ResolvePage(pageType);
             await Navigation.PushAsync(toPage as Page, true);
         }
     }

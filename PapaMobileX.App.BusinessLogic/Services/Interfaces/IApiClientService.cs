@@ -10,6 +10,6 @@ public interface IApiClientService
                                                           CancellationToken cancellationToken = default);
 
     Task<Result<HttpError>> TestConnectionAsync(CancellationToken cancellationToken = default);
-    
+
     void CancelAllRequests();
 }

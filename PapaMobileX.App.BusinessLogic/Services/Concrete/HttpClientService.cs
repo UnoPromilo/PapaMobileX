@@ -14,12 +14,13 @@ public class HttpClientService : IHttpClientService
 {
     private const string ContentTypeHeaderValue = "application/json";
     private readonly IHttpClientBuilder _httpClientBuilder;
-    private readonly ITokenService _tokenService;
 
     private readonly JsonSerializerOptions _serializerOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
+
+    private readonly ITokenService _tokenService;
 
     private readonly object _tokenUsageLock = new();
     private CancellationTokenSource _cancellationTokenSource = new();
@@ -40,7 +41,7 @@ public class HttpClientService : IHttpClientService
 
         return await DeserializeResponse<T>(response.Data);
     }
-    
+
     public async Task<Result<HttpError>> GetAsync(string resource, CancellationToken cancellationToken = default)
     {
         using Result<HttpError, HttpResponseMessage> response =
@@ -90,11 +91,11 @@ public class HttpClientService : IHttpClientService
         }
     }
 
-    private async Task<Result<HttpError, HttpResponseMessage>> InternalSendAsync(
-        HttpMethod httpMethod,
-        string resource,
-        object? body,
-        CancellationToken cancellationToken = default)
+    private async Task<Result<HttpError, HttpResponseMessage>> InternalSendAsync(HttpMethod httpMethod,
+                                                                                 string resource,
+                                                                                 object? body,
+                                                                                 CancellationToken cancellationToken =
+                                                                                     default)
     {
         try
         {
@@ -120,7 +121,7 @@ public class HttpClientService : IHttpClientService
                 httpRequestMessage.Headers.Authorization =
                     new AuthenticationHeaderValue("Bearer", _tokenService.Token);
             }
-            
+
             HttpResponseMessage responseMessage =
                 await httpClient.SendAsync(httpRequestMessage, combinedCancellationToken);
 

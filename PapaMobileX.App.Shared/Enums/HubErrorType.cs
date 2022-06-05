@@ -6,5 +6,5 @@ public enum HubErrorType
     ProblemDuringStartupAttempt,
     ProblemDuringStopAttempt,
     HubInactive,
-    UnsupportedMessageType,
+    UnsupportedMessageType
 }

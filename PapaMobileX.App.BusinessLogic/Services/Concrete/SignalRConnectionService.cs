@@ -13,18 +13,18 @@ public class SignalRConnectionService : ISignalRConnectionService
     {
         _hubClients = hubClients;
     }
-    
+
     public async Task<Result<HubError>> StartConnectionAsync(Uri baseUrl)
     {
         if (_hubClients.Any(c => c.IsRunning))
             await StopConnectionAsync();
 
-        Result<HubError>[] results = 
+        Result<HubError>[] results =
             await Task.WhenAll(_hubClients.Select(client => client.StartConnectionAsync(baseUrl)));
-        
+
         if (results.All(result => result.IsSuccess))
             return Result<HubError>.Ok();
-        
+
         await StopConnectionAsync();
         return results.First(r => r.IsFailed);
     }

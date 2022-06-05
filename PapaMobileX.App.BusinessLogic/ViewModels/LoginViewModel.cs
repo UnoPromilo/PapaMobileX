@@ -11,17 +11,17 @@ namespace PapaMobileX.App.BusinessLogic.ViewModels;
 
 public class LoginViewModel : BaseViewModel
 {
-    private readonly ILoginService _loginService;
-    private readonly ILoginDataService _loginDataService;
-    private readonly INavigationService _navigationService;
     private readonly IApiClientService _apiClientService;
+    private readonly ILoginDataService _loginDataService;
+    private readonly ILoginService _loginService;
     private readonly ILogoutService _logoutService;
+    private readonly INavigationService _navigationService;
     private readonly IRandomJokeService _randomJokeService;
-    private string _userName = String.Empty;
-    private string _password = String.Empty;
-    private string _serverAddress = String.Empty;
     private string _joke = Resources.Loading;
     private bool _loginInProgress;
+    private string _password = String.Empty;
+    private string _serverAddress = String.Empty;
+    private string _userName = String.Empty;
 
     public LoginViewModel(IRandomJokeService randomJokeService,
                           ILoginService loginService,
@@ -41,9 +41,7 @@ public class LoginViewModel : BaseViewModel
         _ = LoadLoginDataAsync();
         LoginCommand = new AsyncCommand(Login, CanExecuteLogin);
         if (tokenService.IsTokenValid)
-        {
             _ = TryToReconnect();
-        }
     }
 
     public string Joke
@@ -57,13 +55,13 @@ public class LoginViewModel : BaseViewModel
         get => _serverAddress;
         set => SetField(ref _serverAddress, value);
     }
-    
+
     public string UserName
     {
         get => _userName;
         set => SetField(ref _userName, value);
     }
-    
+
     public string Password
     {
         get => _password;
@@ -75,8 +73,8 @@ public class LoginViewModel : BaseViewModel
     public bool IsPasswordValid => GetErrors(nameof(Password)).Count == 0;
 
     public AsyncCommand LoginCommand { get; init; }
-    
-    
+
+
     protected override void OnErrorsChanged(string? propertyName)
     {
         base.OnErrorsChanged(propertyName);
@@ -90,10 +88,10 @@ public class LoginViewModel : BaseViewModel
         string joke = await _randomJokeService.GetRandomJoke();
         Joke = joke;
     }
-    
+
     private async Task LoadLoginDataAsync()
     {
-        var model = await _loginDataService.ReadSavedLoginModelAsync();
+        LoginModel? model = await _loginDataService.ReadSavedLoginModelAsync();
         if (model is not null)
         {
             ServerAddress = model.Address;
@@ -162,17 +160,15 @@ public class LoginViewModel : BaseViewModel
                 await _navigationService.NavigateToPageByViewModelAsync<SteeringViewModel>();
             }
             else
-            {
                 _logoutService.Logout();
-            }
         }
         finally
         {
             UpdateLoginInProgress(false);
         }
     }
-    
-    
+
+
     private bool CanExecuteLogin()
     {
         return !_loginInProgress;
@@ -182,7 +178,7 @@ public class LoginViewModel : BaseViewModel
     {
         if (newValue == _loginInProgress)
             return;
-        
+
         _loginInProgress = newValue;
         LoginCommand.RaiseCanExecuteChanged();
     }

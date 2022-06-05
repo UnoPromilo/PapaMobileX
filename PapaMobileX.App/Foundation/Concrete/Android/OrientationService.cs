@@ -1,3 +1,4 @@
+using Android.App;
 using Android.Content.PM;
 using PapaMobileX.App.Foundation.Enums;
 
@@ -7,7 +8,7 @@ public partial class OrientationService
 {
     public partial void LockOrientation(Orientation orientation)
     {
-        var activity = Platform.CurrentActivity ?? MainActivity.Context;
+        Activity activity = Platform.CurrentActivity ?? MainActivity.Context;
 
         switch (orientation)
         {

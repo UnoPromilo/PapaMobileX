@@ -118,7 +118,7 @@ public class HttpClientService : IHttpClientService
             if (_tokenService.IsTokenValid)
             {
                 httpRequestMessage.Headers.Authorization =
-                    new AuthenticationHeaderValue("Bearer", _tokenService.Token!.ToString());
+                    new AuthenticationHeaderValue("Bearer", _tokenService.Token);
             }
             
             HttpResponseMessage responseMessage =

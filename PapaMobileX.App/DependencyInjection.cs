@@ -34,7 +34,7 @@ public static class DependencyInjection
     
     public static MauiAppBuilder RegisterHubClients(this MauiAppBuilder builder)
     {
-        builder.Services.AddTransient<IHubClient, TestHubClient>();
+        builder.Services.AddSingleton<IHubClient, TestHubClient>();
         return builder;
     }
 
@@ -70,22 +70,20 @@ public static class DependencyInjection
                                                new Uri(builder.Configuration.GetValue<string>(Constants.JokeServiceAddressKey));
                                        });
 
-        builder.Services.AddHttpClient(SharedConstants.MainHttpClient)
-               .ConfigurePrimaryHttpMessageHandler(provider => provider.GetRequiredService<IHttpClientHandlerBuilder>().Build());
-
+        builder.Services.AddHttpClient(SharedConstants.MainHttpClient);
         builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddSingleton<IOrientationService, OrientationService>();
         builder.Services.AddSingleton<IRandomJokeService, RandomJokeService>();
         builder.Services.AddSingleton<IHttpClientBuilder, HttpClientBuilder>();
         builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
         builder.Services.AddSingleton<ITokenService, TokenService>();
-        builder.Services.AddSingleton<IHttpClientHandlerBuilder, HttpClientHandlerBuilder>();
-        builder.Services.AddSingleton<ISignalRConnectionService, SignalRConnectionService>();
 
         builder.Services.AddScoped<ILoginService, LoginService>();
         builder.Services.AddScoped<IApiClientService, ApiClientService>();
         builder.Services.AddScoped<ILoginDataService, LoginDataService>();
         builder.Services.AddScoped<ILogoutService, LogoutService>();
+        builder.Services.AddScoped<ISignalRConnectionService, SignalRConnectionService>();
+        builder.Services.AddScoped<ISignalRSender, SignalRSender>();
 
         return builder;
     }

@@ -6,12 +6,10 @@ namespace PapaMobileX.App.BusinessLogic.Services.Concrete;
 public class TokenService : ITokenService
 {
     private readonly JwtSecurityTokenHandler _tokenHandler;
-    public JwtSecurityToken? Token { get; private set; }
-
-    public Task<string?> GetTokenAsync()
-    {
-        return Task.FromResult(Token?.ToString());
-    }
+    
+    public JwtSecurityToken? SerializedToken => Token == null ? null : _tokenHandler.ReadJwtToken(Token);
+    
+    public string? Token { get; private set; }
 
     public bool IsTokenValid => ValidateToken();
 
@@ -22,7 +20,7 @@ public class TokenService : ITokenService
     
     public void SaveToken(string token)
     {
-        Token = _tokenHandler.ReadJwtToken(token);
+        Token = token;
     }
 
     public void ClearToken()
@@ -32,7 +30,10 @@ public class TokenService : ITokenService
 
     private bool ValidateToken()
     {
-        return Token!.ValidFrom <= DateTime.UtcNow &&
-               Token.ValidTo >= DateTime.UtcNow;
+        if (SerializedToken is null)
+            return false;
+        
+        return SerializedToken!.ValidFrom <= DateTime.UtcNow &&
+               SerializedToken.ValidTo >= DateTime.UtcNow;
     }
 }

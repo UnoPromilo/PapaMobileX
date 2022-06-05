@@ -32,7 +32,7 @@ public class LoginError : Error
 
     public static LoginError Timeout()
     {
-        return new(LoginErrorType.Timeoout, "Login failed. Timeout.");
+        return new(LoginErrorType.Timeout, "Login failed. Timeout.");
     }
 
     public static LoginError OtherError()

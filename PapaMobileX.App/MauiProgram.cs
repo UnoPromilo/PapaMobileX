@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using PapaMobileX.App.Effects;
 using PapaMobileX.App.Effects.Implementations;
 
@@ -11,6 +12,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
+        builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole().AddDebug());
         builder
             .UseMauiApp<App>()
             .RegisterViews()
@@ -35,7 +37,7 @@ public static class MauiProgram
                 fonts.AddFont("Roboto-Thin.ttf", "RobotoThin");
                 fonts.AddFont("Roboto-ThinItalic.ttf", "RobotoThinItalic");
             });
-
+        
         string? assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
         using Stream? stream = Assembly
                                .GetExecutingAssembly()

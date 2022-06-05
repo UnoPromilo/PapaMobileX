@@ -5,6 +5,6 @@ public enum LoginErrorType
     InvalidUri,
     ServerNotFound,
     InvalidCredentials,
-    Timeoout,
+    Timeout,
     Other
 }

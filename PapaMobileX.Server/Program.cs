@@ -32,7 +32,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<TestHub>("/testHub");
+app.MapHub<TestHub>("/hubs/test");
 
 //Ugly hack, to redo later
 app.Urls.Add("https://0.0.0.0:443");

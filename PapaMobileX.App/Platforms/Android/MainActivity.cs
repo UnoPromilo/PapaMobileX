@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 
 namespace PapaMobileX.App;
 
@@ -10,6 +11,13 @@ namespace PapaMobileX.App;
                                  ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
 public class MainActivity : MauiAppCompatActivity
 {
+    private const SystemUiFlags UiOptions = SystemUiFlags.HideNavigation |
+                                            SystemUiFlags.LayoutHideNavigation |
+                                            SystemUiFlags.LayoutFullscreen |
+                                            SystemUiFlags.Fullscreen |
+                                            SystemUiFlags.LayoutStable |
+                                            SystemUiFlags.ImmersiveSticky;
+
     public static Activity Context = null!;
 
     public MainActivity()
@@ -20,6 +28,9 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
+        Window!.AddFlags(WindowManagerFlags.Fullscreen);
+        Window.DecorView.SystemUiVisibility = (StatusBarVisibility)UiOptions;
+
         Platform.Init(this, savedInstanceState);
     }
 

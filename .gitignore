@@ -384,3 +384,9 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 .idea/.idea.PapaMobileX/.idea
+SolutionFiles/Certificate.crt
+SolutionFiles/Certificate.csr
+SolutionFiles/Certificate.key
+SolutionFiles/RootCA.crt
+SolutionFiles/RootCA.key
+SolutionFiles/RootCA.srl

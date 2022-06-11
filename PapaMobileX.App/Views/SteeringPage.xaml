@@ -3,9 +3,64 @@
              xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
              x:DataType="viewModel:SteeringViewModel"
              x:Class="PapaMobileX.App.Views.SteeringPage"
-             Title="">
+             Title=""
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Resources>
-        <ResourceDictionary />
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="ControlButton">
+                <Setter Property="HeightRequest" Value="100" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="CornerRadius" Value="50" />
+                <Setter Property="BorderColor" Value="#C4C4C4" />
+                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="BackgroundColor" Value="#30FFFFFF" />
+            </Style>
+            <Style TargetType="Label" x:Key="Description">
+                <Setter Property="FontFamily" Value="RobotoLight" />
+                <Setter Property="Padding" Value="2,0,0,0" />
+            </Style>
+            <Style TargetType="Label" x:Key="Value">
+                <Setter Property="FontFamily" Value="RobotoMedium" />
+                <Setter Property="Padding" Value="0,0,2,0" />
+                <Setter Property="Grid.Column" Value="1" />
+            </Style>
+            <Style TargetType="Grid" x:Key="InfoRow">
+                <Setter Property="ColumnDefinitions" Value="*, Auto" />
+            </Style>
+        </ResourceDictionary>
     </ContentPage.Resources>
+    <!--Change first row to 60 to add top icons-->
+    <Grid RowDefinitions="0, Auto, *, 150"
+          ColumnDefinitions="150, *, 150">
+        <Image Source="video_placeholder"
+               Grid.RowSpan="4"
+               Grid.ColumnSpan="3" />
+        <Frame BackgroundColor="#70DADADA"
+               Grid.Row="1"
+               Grid.Column="2"
+               Margin="25"
+               Padding="5">
+            <StackLayout>
+                <Grid Style="{StaticResource InfoRow}">
+                    <Label Style="{StaticResource Description}"
+                           Text="Speed" />
+                    <Label Style="{StaticResource Value}"
+                           Text="11 km/h" />
+                </Grid>
+                <Grid Style="{StaticResource InfoRow}">
+                    <Label Style="{StaticResource Description}"
+                           Text="Battery" />
+                    <Label Style="{StaticResource Value}"
+                           Text="70%" />
+                </Grid>
+            </StackLayout>
+        </Frame>
+        <Button Style="{StaticResource ControlButton}"
+                Grid.Column="0"
+                Grid.Row="3" />
+        <Button Style="{StaticResource ControlButton}"
+                Grid.Column="2"
+                Grid.Row="3" />
+    </Grid>
 
 </ContentPage>

@@ -6,7 +6,7 @@ namespace PapaMobileX.App.Foundation.Concrete;
 
 public class NavigationService : INavigationService
 {
-    public static Dictionary<Type, Type> ViewViewModel = new()
+    private static readonly Dictionary<Type, Type> ViewViewModelDictionary = new()
     {
         { typeof(LoginViewModel), typeof(LoginPage) },
         { typeof(SteeringViewModel), typeof(SteeringPage) }
@@ -30,14 +30,22 @@ public class NavigationService : INavigationService
         }
     }
 
-    public async Task NavigateToPageByViewModelAsync<T>(object? parameter = null)
+    public async Task NavigateToPageByViewModelAsync<T>(T? viewModel = null) where T : class
     {
-        if (ViewViewModel.ContainsKey(typeof(T)))
+        if (ViewViewModelDictionary.ContainsKey(typeof(T)))
         {
-            Type pageType = ViewViewModel[typeof(T)];
-            object toPage = ResolvePage(pageType);
-            await Navigation.PushAsync(toPage as Page, true);
+            Type pageType = ViewViewModelDictionary[typeof(T)];
+            var toPage = ResolvePage(pageType) as Page;
+            if (viewModel is not null && toPage is not null)
+                toPage.BindingContext = viewModel;
+            await Navigation.PushAsync(toPage, true);
         }
+    }
+
+    public void PopLastPageByViewModel<T>(T viewModel) where T : class
+    {
+        Page? page = Navigation.NavigationStack.First(p => p.BindingContext == viewModel);
+        Navigation.RemovePage(page);
     }
 
     public Task NavigateBack()

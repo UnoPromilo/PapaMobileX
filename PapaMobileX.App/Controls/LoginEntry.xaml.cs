@@ -119,7 +119,7 @@ public partial class LoginEntry : Border
         if (!(bindable is LoginEntry loginEntry))
             return;
 
-        loginEntry.SetVaild(loginEntry.Valid);
+        loginEntry.SetValid(loginEntry.Valid);
     }
 
     private static void OnIconChanged(BindableObject bindable, object oldValue, object newValue)
@@ -167,7 +167,7 @@ public partial class LoginEntry : Border
         if (!(bindable is LoginEntry loginEntry))
             return;
 
-        loginEntry.SetVaild((bool)newValue);
+        loginEntry.SetValid((bool)newValue);
     }
 
     private void SetColor(Color color)
@@ -203,7 +203,7 @@ public partial class LoginEntry : Border
         InternalEntry.Keyboard = keyboard;
     }
 
-    private void SetVaild(bool valid)
+    private void SetValid(bool valid)
     {
         SetColor(valid ? TintColor : ErrorTintColor);
     }

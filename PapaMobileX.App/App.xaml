@@ -10,8 +10,9 @@
             <Color x:Key="PrimaryColorGradientLeft">#FFCB46</Color>
             <Color x:Key="PrimaryColorGradientRight">#FE9901</Color>
             <Color x:Key="PrimaryColorLight">#FFDA7C</Color>
-            <Color x:Key="BackgroundColorDark">#FFEFC8</Color>
-            <Color x:Key="BackgroundColorLight">#FFFBF0</Color>
+            <Color x:Key="BackgroundYellowColorDark">#FFEFC8</Color>
+            <Color x:Key="BackgroundYellowColorLight">#FFFBF0</Color>
+            <Color x:Key="BackgroundColor">#F3F5F5</Color>
             <Color x:Key="ErrorColor">#C82525</Color>
             <Color x:Key="TextColorDark">#000000</Color>
             <Color x:Key="TextColorLight">#FFFFFF</Color>

@@ -68,6 +68,12 @@ public class LoginViewModel : BaseViewModel
         set => SetField(ref _password, value);
     }
 
+    public bool LoginInProgress
+    {
+        get => _loginInProgress;
+        set => SetField(ref _loginInProgress, value);
+    }
+
     public bool IsServerAddressValid => GetErrors(nameof(ServerAddress)).Count == 0;
     public bool IsUserNameValid => GetErrors(nameof(UserName)).Count == 0;
     public bool IsPasswordValid => GetErrors(nameof(Password)).Count == 0;
@@ -141,6 +147,7 @@ public class LoginViewModel : BaseViewModel
 
             _ = _loginDataService.SaveLoginModelAsync(model);
             await _navigationService.NavigateToPageByViewModelAsync<SteeringViewModel>();
+            _navigationService.PopLastPageByViewModel(this);
         }
         finally
         {
@@ -171,15 +178,15 @@ public class LoginViewModel : BaseViewModel
 
     private bool CanExecuteLogin()
     {
-        return !_loginInProgress;
+        return !LoginInProgress;
     }
 
     private void UpdateLoginInProgress(bool newValue)
     {
-        if (newValue == _loginInProgress)
+        if (newValue == LoginInProgress)
             return;
 
-        _loginInProgress = newValue;
+        LoginInProgress = newValue;
         LoginCommand.RaiseCanExecuteChanged();
     }
 }

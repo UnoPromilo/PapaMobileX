@@ -4,13 +4,16 @@
              xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
              xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
              xmlns:resourceDictionary="clr-namespace:PapaMobileX.App.BusinessLogic.ResourceDictionary;assembly=PapaMobileX.App.BusinessLogic"
+             xmlns:converters="clr-namespace:PapaMobileX.App.Converters"
              x:DataType="viewModel:LoginViewModel"
              x:Class="PapaMobileX.App.Views.LoginPage"
              Title="">
     <ContentPage.Resources>
-        <ResourceDictionary />
+        <ResourceDictionary>
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid BackgroundColor="{DynamicResource BackgroundColorDark}"
+    <Grid BackgroundColor="{DynamicResource BackgroundYellowColorDark}"
           Padding="0"
           RowDefinitions="Auto, *, Auto"
           VerticalOptions="Fill">
@@ -46,14 +49,16 @@
                                  Keyboard="Url"
                                  TintColor="{DynamicResource PrimaryColor}"
                                  ErrorTintColor="{DynamicResource ErrorColor}"
-                                 Valid="{Binding IsServerAddressValid}" />
+                                 Valid="{Binding IsServerAddressValid}"
+                                 IsEnabled="{Binding LoginInProgress, Converter={StaticResource InvertedBoolConverter}}" />
             <controls:LoginEntry x:Name="UserNameEntry"
                                  IconSource="user"
                                  Placeholder="{x:Static resourceDictionary:Resources.UserName}"
                                  Text="{Binding UserName}"
                                  TintColor="{DynamicResource PrimaryColor}"
                                  ErrorTintColor="{DynamicResource ErrorColor}"
-                                 Valid="{Binding IsUserNameValid}" />
+                                 Valid="{Binding IsUserNameValid}"
+                                 IsEnabled="{Binding LoginInProgress, Converter={StaticResource InvertedBoolConverter}}" />
             <controls:LoginEntry x:Name="PasswordEntry"
                                  IconSource="lock"
                                  Placeholder="{x:Static resourceDictionary:Resources.Password}"
@@ -61,7 +66,8 @@
                                  Text="{Binding Password}"
                                  TintColor="{DynamicResource PrimaryColor}"
                                  ErrorTintColor="{DynamicResource ErrorColor}"
-                                 Valid="{Binding IsPasswordValid}" />
+                                 Valid="{Binding IsPasswordValid}"
+                                 IsEnabled="{Binding LoginInProgress, Converter={StaticResource InvertedBoolConverter}}" />
             <Button Text="{x:Static resourceDictionary:Resources.LetsRide}"
                     TextTransform="Uppercase"
                     FontFamily="RobotoBold"
@@ -99,5 +105,10 @@
                    VerticalTextAlignment="Center"
                    MaxLines="4" />
         </Grid>
+        <ActivityIndicator Grid.RowSpan="3"
+                           HeightRequest="60"
+                           WidthRequest="60"
+                           IsRunning="{Binding LoginInProgress}"
+                           Color="{DynamicResource PrimaryColor}" />
     </Grid>
 </ContentPage>

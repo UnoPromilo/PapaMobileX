@@ -4,6 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>f8d34706-f8cc-4078-a452-8dadee02eaf8</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -11,23 +12,17 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1"/>
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1"/>
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1"/>
+		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PapaMobileX.DTOs\PapaMobileX.DTOs.csproj"/>
-		<ProjectReference Include="..\PapaMobileX.Server.BusinessLogic\PapaMobileX.Server.BusinessLogic.csproj"/>
-		<ProjectReference Include="..\PapaMobileX.Server.DataSource\PapaMobileX.Server.DataSource.csproj"/>
-		<ProjectReference Include="..\PapaMobileX.Server.Mappers\PapaMobileX.Server.Mappers.csproj"/>
-		<ProjectReference Include="..\PapaMobileX.Server.Security\PapaMobileX.Server.Security.csproj"/>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Certificate.pfx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
+		<ProjectReference Include="..\PapaMobileX.DTOs\PapaMobileX.DTOs.csproj" />
+		<ProjectReference Include="..\PapaMobileX.Server.BusinessLogic\PapaMobileX.Server.BusinessLogic.csproj" />
+		<ProjectReference Include="..\PapaMobileX.Server.DataSource\PapaMobileX.Server.DataSource.csproj" />
+		<ProjectReference Include="..\PapaMobileX.Server.Mappers\PapaMobileX.Server.Mappers.csproj" />
+		<ProjectReference Include="..\PapaMobileX.Server.Security\PapaMobileX.Server.Security.csproj" />
 	</ItemGroup>
 
 </Project>

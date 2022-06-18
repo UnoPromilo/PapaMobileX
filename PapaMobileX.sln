@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 		SolutionFiles\install-ca-on-android.sh = SolutionFiles\install-ca-on-android.sh
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Camera", "PapaMobileX.Server.Camera\PapaMobileX.Server.Camera.csproj", "{1B583FC2-9F47-42F6-A8F8-0097713A244E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.SignalR", "PapaMobileX.Server.SignalR\PapaMobileX.Server.SignalR.csproj", "{94035039-70D1-4A84-802B-7961AF866EDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,5 +89,13 @@ Global
 		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D3923AF-2658-4DC6-A946-047C1A500D14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B583FC2-9F47-42F6-A8F8-0097713A244E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B583FC2-9F47-42F6-A8F8-0097713A244E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B583FC2-9F47-42F6-A8F8-0097713A244E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B583FC2-9F47-42F6-A8F8-0097713A244E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94035039-70D1-4A84-802B-7961AF866EDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94035039-70D1-4A84-802B-7961AF866EDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94035039-70D1-4A84-802B-7961AF866EDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94035039-70D1-4A84-802B-7961AF866EDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

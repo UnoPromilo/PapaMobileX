@@ -1,3 +1,4 @@
+using PapaMobileX.App.BusinessLogic.ViewModels;
 using PapaMobileX.App.Foundation.Enums;
 using PapaMobileX.App.Foundation.Interfaces;
 
@@ -7,8 +8,9 @@ public partial class SteeringPage
 {
     private readonly IOrientationService _orientationService;
 
-    public SteeringPage(IOrientationService orientationService)
+    public SteeringPage(SteeringViewModel steeringViewModel, IOrientationService orientationService)
     {
+        BindingContext = steeringViewModel;
         _orientationService = orientationService;
         InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);

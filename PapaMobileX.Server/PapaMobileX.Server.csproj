@@ -20,6 +20,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\PapaMobileX.DTOs\PapaMobileX.DTOs.csproj" />
 		<ProjectReference Include="..\PapaMobileX.Server.BusinessLogic\PapaMobileX.Server.BusinessLogic.csproj" />
+		<ProjectReference Include="..\PapaMobileX.Server.Camera\PapaMobileX.Server.Camera.csproj" />
 		<ProjectReference Include="..\PapaMobileX.Server.DataSource\PapaMobileX.Server.DataSource.csproj" />
 		<ProjectReference Include="..\PapaMobileX.Server.Mappers\PapaMobileX.Server.Mappers.csproj" />
 		<ProjectReference Include="..\PapaMobileX.Server.Security\PapaMobileX.Server.Security.csproj" />

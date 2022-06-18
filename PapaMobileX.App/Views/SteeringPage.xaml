@@ -32,7 +32,7 @@
     <!--Change first row to 60 to add top icons-->
     <Grid RowDefinitions="0, Auto, *, 150"
           ColumnDefinitions="150, *, 150">
-        <Image Source="video_placeholder"
+        <Image Source="{Binding VideoFrame}"
                Grid.RowSpan="4"
                Grid.ColumnSpan="3" />
         <Frame BackgroundColor="#70DADADA"

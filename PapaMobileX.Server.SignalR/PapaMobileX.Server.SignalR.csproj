@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\PapaMobileX.Shared\PapaMobileX.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.AspNetCore.Authorization">
+	    <HintPath>..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\6.0.6\Microsoft.AspNetCore.Authorization.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Microsoft.AspNetCore.SignalR.Core">
+	    <HintPath>..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\6.0.6\Microsoft.AspNetCore.SignalR.Core.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

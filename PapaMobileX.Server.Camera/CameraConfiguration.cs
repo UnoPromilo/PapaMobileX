@@ -9,7 +9,8 @@ public static class CameraConfiguration
 {
     public static IServiceCollection ConfigureCamera(this IServiceCollection services)
     {
-        services.AddSingleton<IVideoCameraService, BasicVideoCameraService>();
+        services.AddTransient<IVideoCaptureService, VideoCaptureService>();
+        services.AddSingleton<IVideoCameraService, VideoCameraService>();
         services.AddSingleton<IHostedService, CameraBackgroundService>();
         services.AddSingleton<IHostedService, StreamBackgroundService>();
         return services;

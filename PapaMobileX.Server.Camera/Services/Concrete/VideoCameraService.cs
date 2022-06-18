@@ -5,9 +5,10 @@ using PapaMobileX.Server.Camera.Services.Interfaces;
 
 namespace PapaMobileX.Server.Camera.Services.Concrete;
 
-public class BasicVideoCameraService : IVideoCameraService
+public class VideoCameraService : IVideoCameraService
 {
-    private readonly ILogger<BasicVideoCameraService> _logger;
+    private readonly ILogger<VideoCameraService> _logger;
+    private readonly IVideoCaptureService _videoCaptureService;
     private VideoCapture _videoCapture = new();
     private readonly Mat _lastFrame = new();
     private readonly Mat _image = new();
@@ -21,9 +22,10 @@ public class BasicVideoCameraService : IVideoCameraService
 
     public event EventHandler? OnFrameReceived;
 
-    public BasicVideoCameraService(ILogger<BasicVideoCameraService> logger)
+    public VideoCameraService(ILogger<VideoCameraService> logger, IVideoCaptureService videoCaptureService)
     {
         _logger = logger;
+        _videoCaptureService = videoCaptureService;
         _linkedCts = _cts;
         _frameStopwatch = new Stopwatch();
     }
@@ -35,17 +37,14 @@ public class BasicVideoCameraService : IVideoCameraService
 
         var task = new Task(() =>
         {
-            _logger.LogInformation("Video stream started");
             _isInitialized = true;
             _frameStopwatch = Stopwatch.StartNew();
             _framesCounter = 0;
             try
             {
-
                 _videoCapture.Dispose();
-                _videoCapture = VideoCapture.FromCamera(0);
-                _videoCapture.Fps = 30;
-
+                _videoCapture = _videoCaptureService.BuildVideoCapture();
+                _logger.LogInformation("Video stream started");
                 bool isLastFrameReadCorrectly;
                 do
                 {

@@ -23,11 +23,10 @@ builder.Services
 
 WebApplication app = builder.Build();
 
-//Definitions for proxy
 app.UseSwagger(SwaggerConfiguration.ConfigureSwaggerUsage);
 
-if (app.Environment.IsDevelopment())
-    app.UseSwaggerUI();
+if (app.Environment.IsDevelopment()) 
+       app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

@@ -57,17 +57,15 @@ public class StreamBackgroundService : BackgroundService
             {
                 try
                 {
-                    _frameReceivedEvent.WaitOne(1000);
-                    var stop = Stopwatch.StartNew();
+                    _frameReceivedEvent.WaitOne();
                     using Mat mat = new();
                     _videoCameraService.GetFrame(mat);
-                    using var ms = mat.ToMemoryStream(".jpg", _imageEncodingParams);
+                    var ms = mat.ImEncode(".jpg", _imageEncodingParams);
                     var data = new VideoData
                     {
-                        Data = Convert.ToBase64String(ms.ToArray())
+                        Data = Convert.ToBase64String(ms)
                     };
                     _hubContext.Clients.All.Frame(data);
-                    var elapsed = stop.ElapsedMilliseconds;
                 }
                 catch (Exception e)
                 {

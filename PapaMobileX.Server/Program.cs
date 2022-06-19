@@ -35,6 +35,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<VideoHub>("/hubs/video");
+app.UseWebSockets();
 
 //Ugly hack, to redo later
 app.Urls.Add("https://0.0.0.0:443");

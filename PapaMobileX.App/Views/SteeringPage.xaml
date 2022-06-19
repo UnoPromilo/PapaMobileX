@@ -1,6 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
+             xmlns:converters="clr-namespace:PapaMobileX.App.Converters"
              x:DataType="viewModel:SteeringViewModel"
              x:Class="PapaMobileX.App.Views.SteeringPage"
              Title=""
@@ -27,12 +28,13 @@
             <Style TargetType="Grid" x:Key="InfoRow">
                 <Setter Property="ColumnDefinitions" Value="*, Auto" />
             </Style>
+            <converters:StreamToImageSourceConverter x:Key="StreamToImageSourceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--Change first row to 60 to add top icons-->
     <Grid RowDefinitions="0, Auto, *, 150"
           ColumnDefinitions="150, *, 150">
-        <Image Source="{Binding VideoFrame}"
+        <Image Source="{Binding VideoFrame, Converter={StaticResource StreamToImageSourceConverter}}"
                Grid.RowSpan="4"
                Grid.ColumnSpan="3" />
         <Frame BackgroundColor="#70DADADA"

@@ -1,10 +1,14 @@
 using System.ComponentModel;
+using PapaMobileX.Shared.Results;
+using PapaMobileX.Shared.Results.Errors;
 
 namespace PapaMobileX.App.BusinessLogic.Services.Interfaces;
 
 public interface IVideoService : INotifyPropertyChanged
 {
-    public Stream? LastFrame { get; }
+    public byte[]? LastFrame { get; }
 
-    public void UpdateFrame(string image);
+    Task<Result<Error>> StartConnectionAsync(Uri baseUrl);
+
+    Task StopConnection();
 }

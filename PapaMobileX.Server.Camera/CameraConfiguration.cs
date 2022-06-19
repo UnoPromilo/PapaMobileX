@@ -11,6 +11,7 @@ public static class CameraConfiguration
     {
         services.AddTransient<IVideoCaptureService, VideoCaptureService>();
         services.AddSingleton<IVideoCameraService, VideoCameraService>();
+        services.AddSingleton<IVideoWebSocketsService, VideoWebSocketsService>();
         services.AddSingleton<IHostedService, CameraBackgroundService>();
         services.AddSingleton<IHostedService, StreamBackgroundService>();
         return services;

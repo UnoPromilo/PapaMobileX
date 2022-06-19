@@ -3,6 +3,7 @@ using PapaMobileX.App.BusinessLogic.Models;
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.Shared.Errors;
 using PapaMobileX.Shared.Results;
+using PapaMobileX.Shared.Results.Errors;
 
 namespace PapaMobileX.App.BusinessLogic.Services.Concrete;
 
@@ -11,17 +12,20 @@ public class LoginService : ILoginService
     private readonly IApiClientService _apiClientService;
     private readonly IHttpClientBuilder _httpClientBuilder;
     private readonly ISignalRConnectionService _signalRConnectionService;
+    private readonly IVideoService _videoService;
     private readonly ITokenService _tokenService;
 
     public LoginService(IApiClientService apiClientService,
                         IHttpClientBuilder httpClientBuilder,
                         ITokenService tokenService,
-                        ISignalRConnectionService signalRConnectionService)
+                        ISignalRConnectionService signalRConnectionService,
+                        IVideoService videoService)
     {
         _apiClientService = apiClientService;
         _httpClientBuilder = httpClientBuilder;
         _tokenService = tokenService;
         _signalRConnectionService = signalRConnectionService;
+        _videoService = videoService;
     }
 
     public async Task<Result<LoginError>> Login(LoginModel loginModel)
@@ -42,10 +46,16 @@ public class LoginService : ILoginService
 
     public async Task<Result<LoginError>> InitializeConnectionAsync()
     {
-        Result<HubError> result =
+        Result<HubError> signalRResult =
             await _signalRConnectionService.StartConnectionAsync(_httpClientBuilder.MainHttpClientBaseAddress!);
-        if (result.IsFailed)
+        if (signalRResult.IsFailed)
             return LoginError.OtherError();
+
+        Result<Error> videoResult =
+            await _videoService.StartConnectionAsync(_httpClientBuilder.MainHttpClientBaseAddress!);
+        if (videoResult.IsFailed)
+            return LoginError.OtherError();
+
         return Result<LoginError>.Ok();
     }
 

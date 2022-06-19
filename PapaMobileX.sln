@@ -28,7 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 	ProjectSection(SolutionItems) = preProject
 		SolutionFiles\generate-cert.sh = SolutionFiles\generate-cert.sh
 		SolutionFiles\domains.ext = SolutionFiles\domains.ext
-		SolutionFiles\install-ca-on-android.sh = SolutionFiles\install-ca-on-android.sh
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaMobileX.Server.Camera", "PapaMobileX.Server.Camera\PapaMobileX.Server.Camera.csproj", "{1B583FC2-9F47-42F6-A8F8-0097713A244E}"

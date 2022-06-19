@@ -52,7 +52,7 @@ public class VideoHubClient : BaseHubClient, IVideoHubDefinition
 
     public Task Frame(VideoData data)
     {
-        _videoService.UpdateFrame(data.Data);
+
         return Task.CompletedTask;
     }
 }

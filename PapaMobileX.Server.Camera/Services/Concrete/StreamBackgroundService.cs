@@ -1,12 +1,7 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenCvSharp;
 using PapaMobileX.Server.Camera.Services.Interfaces;
-using PapaMobileX.Server.SignalR.Hubs;
-using PapaMobileX.Shared.HubDefinitions;
-using PapaMobileX.Shared.Models;
 
 namespace PapaMobileX.Server.Camera.Services.Concrete;
 
@@ -14,17 +9,19 @@ public class StreamBackgroundService : BackgroundService
 {
     private readonly IVideoCameraService _videoCameraService;
     private readonly ILogger<StreamBackgroundService> _logger;
-    private readonly IHubContext<VideoHub, IVideoHubDefinition> _hubContext;
+    private readonly IVideoWebSocketsService _videoWebSocketsService;
     private readonly ManualResetEvent _frameReceivedEvent;
     private readonly ImageEncodingParam[] _imageEncodingParams = { new(ImwriteFlags.JpegQuality, 50) };
 
 
-    public StreamBackgroundService(IVideoCameraService videoCameraService, ILogger<StreamBackgroundService> logger, IHubContext<VideoHub, IVideoHubDefinition> hubContext)
+    public StreamBackgroundService(IVideoCameraService videoCameraService,
+                                   ILogger<StreamBackgroundService> logger,
+                                   IVideoWebSocketsService videoWebSocketsService)
     {
         _frameReceivedEvent = new ManualResetEvent(false);
         _videoCameraService = videoCameraService;
         _logger = logger;
-        _hubContext = hubContext;
+        _videoWebSocketsService = videoWebSocketsService;
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -51,21 +48,19 @@ public class StreamBackgroundService : BackgroundService
     
     private Task StreamVideo(CancellationToken cancellationToken)
     {
-        var task = new Task(() =>
+        Task task = Task.Factory.StartNew(() =>
         {
             while (cancellationToken.IsCancellationRequested == false)
             {
                 try
                 {
                     _frameReceivedEvent.WaitOne();
+                    _frameReceivedEvent.Reset();
+
                     using Mat mat = new();
                     _videoCameraService.GetFrame(mat);
-                    var ms = mat.ImEncode(".jpg", _imageEncodingParams);
-                    var data = new VideoData
-                    {
-                        Data = Convert.ToBase64String(ms)
-                    };
-                    _hubContext.Clients.All.Frame(data);
+                    var bytes = mat.ImEncode(".jpg", _imageEncodingParams);
+                    _videoWebSocketsService.SendNewFrame(bytes);
                 }
                 catch (Exception e)
                 {
@@ -73,7 +68,6 @@ public class StreamBackgroundService : BackgroundService
                 }
             }
         }, TaskCreationOptions.LongRunning);
-        task.Start();
         return task;
     }
 }

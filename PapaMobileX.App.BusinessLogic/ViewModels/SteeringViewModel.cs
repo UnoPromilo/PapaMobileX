@@ -7,27 +7,38 @@ namespace PapaMobileX.App.BusinessLogic.ViewModels;
 public class SteeringViewModel : BaseViewModel, IDisposable
 {
     private readonly IVideoService _videoService;
-    private MemoryStream _videoFrame;
-
-    public Stream? VideoFrame
+    private byte[]? _videoFrame = { 0 };
+    private const int FpsLimit = 10;
+    private const int MaxFpsValue = 30;
+    private int _frameCounter;
+    
+    
+    public Stream VideoFrame
     {
-        get => _videoFrame;
+        get
+        {
+            if (_videoFrame is null)
+                return null;
+            return new MemoryStream(_videoFrame);
+        }
     }
 
     public SteeringViewModel(IVideoService videoService)
     {
         _videoService = videoService;
         _videoService.PropertyChanged += VideoServiceOnPropertyChanged;
-        _videoFrame = new MemoryStream();
     }
 
     private void VideoServiceOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(_videoService.LastFrame))
+        //BLEEEE, but performance
+        if (_frameCounter > MaxFpsValue / FpsLimit)
         {
-            _videoService.LastFrame!.CopyTo(_videoFrame);
+            _videoFrame = _videoService.LastFrame;
             OnPropertyChanged(nameof(VideoFrame));
+            _frameCounter = 0;
         }
+        _frameCounter++;
     }
 
 

@@ -35,7 +35,7 @@ public class VideoCameraService : IVideoCameraService
         if (_isInitialized)
             throw new Exception("Video camera service already initialized");
 
-        var task = new Task(() =>
+        Task task = Task.Factory.StartNew(() =>
         {
             _isInitialized = true;
             _frameStopwatch = Stopwatch.StartNew();
@@ -68,7 +68,6 @@ public class VideoCameraService : IVideoCameraService
                 _isInitialized = false;
             }
         }, TaskCreationOptions.LongRunning);
-        task.Start();
          return task;
     }
 

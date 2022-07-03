@@ -7,6 +7,7 @@ namespace PapaMobileX.Server.Camera.Services.Concrete;
 
 public class VideoCameraService : IVideoCameraService
 {
+    private bool _disposed;
     private readonly ILogger<VideoCameraService> _logger;
     private readonly IVideoCaptureService _videoCaptureService;
     private VideoCapture _videoCapture = new();
@@ -83,6 +84,10 @@ public class VideoCameraService : IVideoCameraService
 
     public void Dispose()
     {
+        if(_disposed)
+            return;
+
+        _disposed = true;
         GC.SuppressFinalize(this);
 
         _cts.Cancel();

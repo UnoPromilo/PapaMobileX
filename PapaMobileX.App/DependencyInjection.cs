@@ -9,6 +9,7 @@ using PapaMobileX.App.BusinessLogic.Services.Interfaces;
 using PapaMobileX.App.BusinessLogic.ViewModels;
 using PapaMobileX.App.Foundation.Concrete;
 using PapaMobileX.App.Foundation.Interfaces;
+using PapaMobileX.App.Services.Concrete;
 using PapaMobileX.App.Shared;
 using PapaMobileX.App.Views;
 using IHttpClientBuilder = PapaMobileX.App.BusinessLogic.Builders.Interfaces.IHttpClientBuilder;
@@ -78,6 +79,7 @@ public static class DependencyInjection
         builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
         builder.Services.AddSingleton<ITokenService, TokenService>();
         builder.Services.AddSingleton<IVideoService, VideoService>();
+        builder.Services.AddSingleton<ISteeringService, RotationService>();
 
         builder.Services.AddScoped<ILoginService, LoginService>();
         builder.Services.AddScoped<IApiClientService, ApiClientService>();

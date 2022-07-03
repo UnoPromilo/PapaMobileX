@@ -57,7 +57,9 @@
 
 	<ItemGroup>
 		<Folder Include="Behaviours" />
+		<Folder Include="Platforms\Android\Resources\layout" />
 		<Folder Include="Resources\Styles" />
+		<Folder Include="Services\Interfaces" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -89,6 +91,10 @@
 
 		<Compile Remove="**\Effects\Implementations\Android\**\*.cs" />
 		<None Include="**\Effects\Implementations\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<Reference Include="Mono.Android">
+			<HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.Android.Ref.31\32.0.301\ref\net6.0\Mono.Android.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true AND $(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
@@ -111,9 +117,6 @@
 		<Reference Include="Microsoft.Extensions.Configuration.Binder" />
 		<Reference Include="Microsoft.iOS">
 			<HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.iOS.Ref\15.4.303\ref\net6.0\Microsoft.iOS.dll</HintPath>
-		</Reference>
-		<Reference Include="Mono.Android">
-			<HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.Android.Ref.31\32.0.301\ref\net6.0\Mono.Android.dll</HintPath>
 		</Reference>
 		<Reference Include="Xamarin.CommunityToolkit.MauiCompat">
 			<HintPath>..\..\..\.nuget\packages\xamarin.communitytoolkit.mauicompat\2.0.2-preview1013\lib\net6.0-maccatalyst15.4\Xamarin.CommunityToolkit.MauiCompat.dll</HintPath>

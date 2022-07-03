@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
              xmlns:converters="clr-namespace:PapaMobileX.App.Converters"
+             xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
              x:DataType="viewModel:SteeringViewModel"
              x:Class="PapaMobileX.App.Views.SteeringPage"
              Title=""
@@ -34,9 +35,10 @@
     <!--Change first row to 60 to add top icons-->
     <Grid RowDefinitions="0, Auto, *, 150"
           ColumnDefinitions="150, *, 150">
-        <Image Source="{Binding VideoFrame, Converter={StaticResource StreamToImageSourceConverter}}"
-               Grid.RowSpan="4"
-               Grid.ColumnSpan="3" />
+        <controls:VideoImage
+            VideoFrame="{Binding VideoFrame}"
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="3"/>
         <Frame BackgroundColor="#70DADADA"
                Grid.Row="1"
                Grid.Column="2"

@@ -2,6 +2,8 @@
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Compatibility.Hosting;
+using PapaMobileX.App.Controls;
 using PapaMobileX.App.Effects;
 using PapaMobileX.App.Effects.Implementations;
 
@@ -36,6 +38,13 @@ public static class MauiProgram
                 fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
                 fonts.AddFont("Roboto-Thin.ttf", "RobotoThin");
                 fonts.AddFont("Roboto-ThinItalic.ttf", "RobotoThinItalic");
+            })
+            .ConfigureMauiHandlers(h =>
+            {
+                #if ANDROID
+                    h.AddHandler(typeof(VideoImage), typeof(VideoImageHandler));
+                #endif
+                h.AddMauiControlsHandlers();
             });
 
         string? assemblyName = Assembly.GetExecutingAssembly().GetName().Name;

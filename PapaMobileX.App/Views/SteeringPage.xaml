@@ -13,9 +13,12 @@
                 <Setter Property="HeightRequest" Value="100" />
                 <Setter Property="WidthRequest" Value="100" />
                 <Setter Property="CornerRadius" Value="50" />
-                <Setter Property="BorderColor" Value="#C4C4C4" />
-                <Setter Property="BorderWidth" Value="3" />
-                <Setter Property="BackgroundColor" Value="#30FFFFFF" />
+                <Setter Property="BackgroundColor" Value="#B3FFFFFF" />
+            </Style>
+            <Style TargetType="Slider" x:Key="ControlSlider">
+                <Setter Property="HeightRequest" Value="100" />
+                <Setter Property="WidthRequest" Value="135" />
+                <Setter Property="Rotation" Value="-90" />
             </Style>
             <Style TargetType="Label" x:Key="Description">
                 <Setter Property="FontFamily" Value="RobotoLight" />
@@ -29,15 +32,14 @@
             <Style TargetType="Grid" x:Key="InfoRow">
                 <Setter Property="ColumnDefinitions" Value="*, Auto" />
             </Style>
-            <converters:StreamToImageSourceConverter x:Key="StreamToImageSourceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--Change first row to 60 to add top icons-->
-    <Grid RowDefinitions="0, Auto, *, 150"
+    <Grid RowDefinitions="0, Auto, *, 125, 120"
           ColumnDefinitions="150, *, 150">
         <controls:VideoImage
             VideoFrame="{Binding VideoFrame}"
-            Grid.RowSpan="4"
+            Grid.RowSpan="5"
             Grid.ColumnSpan="3"/>
         <Frame BackgroundColor="#70DADADA"
                Grid.Row="1"
@@ -60,11 +62,25 @@
             </StackLayout>
         </Frame>
         <Button Style="{StaticResource ControlButton}"
+                Margin="0,0,0,20"
                 Grid.Column="0"
-                Grid.Row="3" />
-        <Button Style="{StaticResource ControlButton}"
-                Grid.Column="2"
-                Grid.Row="3" />
+                Grid.Row="4" />
+        
+        <BoxView HeightRequest="160"
+            WidthRequest="60"
+            CornerRadius="30"
+            Color="#208F8F8F"
+            Grid.Column="2"
+            Grid.Row="3"
+            Grid.RowSpan="2"/>
+        
+        <controls:AccelerationSlider x:Name="AccelerationSlider"
+                                     Grid.Column="2"
+                                     Grid.Row="3"
+                                     Grid.RowSpan="2"
+                                     Style="{StaticResource ControlSlider}"
+                                     Minimum="0"
+                                     Maximum="1"/>
     </Grid>
 
 </ContentPage>

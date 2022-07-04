@@ -12,7 +12,7 @@
             <Color x:Key="PrimaryColorLight">#FFDA7C</Color>
             <Color x:Key="BackgroundYellowColorDark">#FFEFC8</Color>
             <Color x:Key="BackgroundYellowColorLight">#FFFBF0</Color>
-            <Color x:Key="BackgroundColor">#F3F5F5</Color>
+            <Color x:Key="BackgroundColor">#E8E8E8</Color>
             <Color x:Key="ErrorColor">#C82525</Color>
             <Color x:Key="TextColorDark">#000000</Color>
             <Color x:Key="TextColorLight">#FFFFFF</Color>

@@ -16,7 +16,7 @@ public class VideoService : IVideoService
     private readonly ILogger<VideoService> _logger;
     private byte[]? _lastFrame;
     private WebsocketClient? _clientWebSocket;
-    private const string VideoEndpointPattern = "wss://{0}/video";
+    private const string VideoEndpointPattern = "wss://{0}:{1}/video";
     private readonly IList<IDisposable> _subscriptions;
 
     public VideoService(ILogger<VideoService> logger)
@@ -35,7 +35,7 @@ public class VideoService : IVideoService
 
     public async Task<Result<Error>> StartConnectionAsync(Uri baseUrl)
     {
-        _clientWebSocket = new WebsocketClient(GetConnectionString(baseUrl.Host));
+        _clientWebSocket = new WebsocketClient(GetConnectionString(baseUrl.Host, baseUrl.Port));
         ConfigureWebsocketClient(_clientWebSocket);
         try
         {
@@ -76,9 +76,9 @@ public class VideoService : IVideoService
         return true;
     }
 
-    private Uri GetConnectionString(string host)
+    private Uri GetConnectionString(string host, int port)
     {
-        var connectionString =  String.Format(VideoEndpointPattern, host);
+        var connectionString =  String.Format(VideoEndpointPattern, host, port);
         return new Uri(connectionString);
     }
 

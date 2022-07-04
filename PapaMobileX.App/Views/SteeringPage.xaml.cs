@@ -13,7 +13,13 @@ public partial class SteeringPage
         BindingContext = steeringViewModel;
         _orientationService = orientationService;
         InitializeComponent();
+        AccelerationSlider.DragCompleted += AccelerationSliderOnDragCompleted;
         NavigationPage.SetHasNavigationBar(this, false);
+    }
+
+    private void AccelerationSliderOnDragCompleted(object? sender, EventArgs e)
+    {
+        AccelerationSlider.Value = AccelerationSlider.Minimum;
     }
 
     protected override void OnAppearing()

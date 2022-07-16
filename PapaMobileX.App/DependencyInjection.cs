@@ -34,7 +34,7 @@ public static class DependencyInjection
 
     public static MauiAppBuilder RegisterHubClients(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<IHubClient, VideoHubClient>();
+        builder.Services.AddSingleton<IHubClient, ControlHubClientDefinitionClient>();
         return builder;
     }
 
@@ -80,6 +80,8 @@ public static class DependencyInjection
         builder.Services.AddSingleton<ITokenService, TokenService>();
         builder.Services.AddSingleton<IVideoService, VideoService>();
         builder.Services.AddSingleton<ISteeringService, RotationService>();
+        builder.Services.AddSingleton<IWheelControlService, WheelControlService>();
+        builder.Services.AddSingleton<IAccelerationControlService, AccelerationControlService>();
 
         builder.Services.AddScoped<ILoginService, LoginService>();
         builder.Services.AddScoped<IApiClientService, ApiClientService>();

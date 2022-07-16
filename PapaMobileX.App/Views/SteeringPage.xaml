@@ -1,7 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:PapaMobileX.App.BusinessLogic.ViewModels;assembly=PapaMobileX.App.BusinessLogic"
-             xmlns:converters="clr-namespace:PapaMobileX.App.Converters"
              xmlns:controls="clr-namespace:PapaMobileX.App.Controls"
              x:DataType="viewModel:SteeringViewModel"
              x:Class="PapaMobileX.App.Views.SteeringPage"
@@ -40,7 +39,7 @@
         <controls:VideoImage
             VideoFrame="{Binding VideoFrame}"
             Grid.RowSpan="5"
-            Grid.ColumnSpan="3"/>
+            Grid.ColumnSpan="3" />
         <Frame BackgroundColor="#70DADADA"
                Grid.Row="1"
                Grid.Column="2"
@@ -63,24 +62,27 @@
         </Frame>
         <Button Style="{StaticResource ControlButton}"
                 Margin="0,0,0,20"
+                Pressed="BreakButton_OnPressed"
+                Released="BreakButton_OnReleased"
                 Grid.Column="0"
                 Grid.Row="4" />
-        
+
         <BoxView HeightRequest="160"
-            WidthRequest="60"
-            CornerRadius="30"
-            Color="#208F8F8F"
-            Grid.Column="2"
-            Grid.Row="3"
-            Grid.RowSpan="2"/>
-        
+                 WidthRequest="60"
+                 CornerRadius="30"
+                 Color="#208F8F8F"
+                 Grid.Column="2"
+                 Grid.Row="3"
+                 Grid.RowSpan="2" />
+
         <controls:AccelerationSlider x:Name="AccelerationSlider"
                                      Grid.Column="2"
                                      Grid.Row="3"
                                      Grid.RowSpan="2"
+                                     Value="{Binding Acceleration, Mode=OneWayToSource}"
                                      Style="{StaticResource ControlSlider}"
                                      Minimum="0"
-                                     Maximum="1"/>
+                                     Maximum="1" />
     </Grid>
 
 </ContentPage>

@@ -33,4 +33,14 @@ public partial class SteeringPage
         base.OnDisappearing();
         _orientationService.UnlockOrientation();
     }
+
+    private void BreakButton_OnPressed(object? sender, EventArgs e)
+    {
+        ((SteeringViewModel)BindingContext).Break = true;
+    }
+
+    private void BreakButton_OnReleased(object? sender, EventArgs e)
+    {
+        ((SteeringViewModel)BindingContext).Break = false;
+    }
 }

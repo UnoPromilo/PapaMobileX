@@ -2,7 +2,6 @@ using PapaMobileX.Server.BusinessLogic;
 using PapaMobileX.Server.Camera;
 using PapaMobileX.Server.Configuration;
 using PapaMobileX.Server.DataSource;
-using PapaMobileX.Server.Hubs;
 using PapaMobileX.Server.Mappers;
 using PapaMobileX.Server.Security;
 using PapaMobileX.Server.SignalR.Hubs;
@@ -25,8 +24,8 @@ WebApplication app = builder.Build();
 
 app.UseSwagger(SwaggerConfiguration.ConfigureSwaggerUsage);
 
-if (app.Environment.IsDevelopment()) 
-       app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+    app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -34,7 +33,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<VideoHub>("/hubs/video");
+app.MapHub<ControlHub>("/hubs/control");
 app.UseWebSockets();
 
 app.Run();

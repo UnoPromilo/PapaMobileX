@@ -1,4 +1,6 @@
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using PapaMobileX.App.BusinessLogic.Services.Interfaces;
@@ -6,6 +8,47 @@ using PapaMobileX.App.Shared.Errors;
 using PapaMobileX.Shared.Results;
 
 namespace PapaMobileX.App.BusinessLogic.HubClients.Abstraction;
+
+public abstract class BaseHubClient<T> : BaseHubClient
+{
+    private readonly ReadOnlyDictionary<Type, string> _messageTypeToHubMethodName;
+
+    protected BaseHubClient(ITokenService tokenService, ILogger<BaseHubClient<T>> logger) : base(tokenService, logger)
+    {
+        Dictionary<Type, string> messageTypeToHubMethodName = new();
+
+        foreach (MethodInfo method in typeof(T).GetMethods())
+        {
+            ParameterInfo[] parameters = method.GetParameters();
+            if (parameters.Length != 1)
+                throw new Exception("Unsupported count of parameters");
+
+            if (messageTypeToHubMethodName.ContainsKey(parameters[0].ParameterType))
+                throw new Exception("Parameter type have to be unique");
+
+            messageTypeToHubMethodName.Add(parameters[0].ParameterType, method.Name);
+        }
+
+        _messageTypeToHubMethodName = new ReadOnlyDictionary<Type, string>(messageTypeToHubMethodName);
+    }
+
+    public override async Task<Result<HubError>> SendMessage(object dto)
+    {
+        if (CanSupportMessage(dto) == false)
+            return Result<HubError>.Failed(HubError.UnsupportedMessageType());
+
+        if (InternalHubConnection is null)
+            return Result<HubError>.Failed(HubError.HubInactive());
+
+        await InternalHubConnection!.SendAsync(_messageTypeToHubMethodName[dto.GetType()], dto);
+        return Result<HubError>.Ok();
+    }
+
+    public override bool CanSupportMessage(object message)
+    {
+        return _messageTypeToHubMethodName.ContainsKey(message.GetType());
+    }
+}
 
 public abstract class BaseHubClient : IHubClient
 {
@@ -26,17 +69,7 @@ public abstract class BaseHubClient : IHubClient
 
     public abstract bool CanSupportMessage(object message);
 
-    public virtual Task<Result<HubError>> SendMessage(object dto)
-    {
-        if (CanSupportMessage(dto) == false)
-            return Task.FromResult(Result<HubError>.Failed(HubError.UnsupportedMessageType()));
-
-
-        if (InternalHubConnection is null)
-            return Task.FromResult(Result<HubError>.Failed(HubError.HubInactive()));
-
-        return Task.FromResult(Result<HubError>.Ok());
-    }
+    public abstract Task<Result<HubError>> SendMessage(object dto);
 
     public async Task<Result<HubError>> StartConnectionAsync(Uri serverAddress)
     {
@@ -58,7 +91,7 @@ public abstract class BaseHubClient : IHubClient
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, "{ErrorMessage}", ex.Message);
             }
         }
 

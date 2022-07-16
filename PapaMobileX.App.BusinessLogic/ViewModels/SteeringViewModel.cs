@@ -6,11 +6,24 @@ namespace PapaMobileX.App.BusinessLogic.ViewModels;
 
 public class SteeringViewModel : BaseViewModel, IDisposable
 {
+    private readonly IAccelerationControlService _accelerationControlService;
     private readonly IVideoService _videoService;
-    private readonly ISteeringService _steeringService;
+    private readonly IWheelControlService _wheelControlService;
     private byte[]? _videoFrame = { 0 };
-    
-    
+
+    public SteeringViewModel(IVideoService videoService,
+                             IWheelControlService wheelControlService,
+                             IAccelerationControlService accelerationControlService)
+    {
+        _videoService = videoService;
+        _wheelControlService = wheelControlService;
+        _accelerationControlService = accelerationControlService;
+        _videoService.PropertyChanged += VideoServiceOnPropertyChanged;
+
+        _wheelControlService.StartMonitoring();
+    }
+
+
     public Stream? VideoFrame
     {
         get
@@ -21,19 +34,16 @@ public class SteeringViewModel : BaseViewModel, IDisposable
         }
     }
 
-    public SteeringViewModel(IVideoService videoService, ISteeringService steeringService)
+    public double Acceleration
     {
-        _videoService = videoService;
-        _steeringService = steeringService;
-        _videoService.PropertyChanged += VideoServiceOnPropertyChanged;
-        
-        _steeringService.StartMonitoring();
+        get => throw new NotImplementedException();
+        set => _accelerationControlService.UpdateAcceleration(value);
     }
 
-    private void VideoServiceOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    public bool Break
     {
-        _videoFrame = _videoService.LastFrame;
-        OnPropertyChanged(nameof(VideoFrame));
+        get => throw new NotImplementedException();
+        set => _accelerationControlService.UpdateBreakPosition(value);
     }
 
 
@@ -41,6 +51,12 @@ public class SteeringViewModel : BaseViewModel, IDisposable
     {
         GC.SuppressFinalize(this);
         _videoService.PropertyChanged -= VideoServiceOnPropertyChanged;
-        _steeringService.StopMonitoring();
+        _wheelControlService.StopMonitoring();
+    }
+
+    private void VideoServiceOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        _videoFrame = _videoService.LastFrame;
+        OnPropertyChanged(nameof(VideoFrame));
     }
 }
